@@ -11,6 +11,9 @@ namespace DndCharacterSheet.ViewModels
         public MainWindowViewModel(NavigationService navigation, SessionService session) : base(session)
         {
             this.NavigationService = navigation;
+
+            // Set the starting page
+            this.NavigationService.NavigateTo<CharacterScreenViewModel>();
         }
 
         #region Public Properties

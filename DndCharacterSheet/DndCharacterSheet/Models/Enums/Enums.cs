@@ -18,6 +18,7 @@ namespace DndCharacterSheet.Models.Enums
     {
         Strength,
         Dexterity,
+        Constitution,
         Intelligence,
         Wisdom,
         Charisma
@@ -25,10 +26,10 @@ namespace DndCharacterSheet.Models.Enums
 
     public enum Skill
     {
-        Athletics,
         Acrobatics,
         AnimalHandling,
         Arcana,
+        Athletics,
         Deception,
         History,
         Insight,
@@ -53,6 +54,18 @@ namespace DndCharacterSheet.Models.Enums
         AC,
         SavingThrow,
         AbilityCheck
+    };
+
+    public enum WeaponClass
+    {
+        Simple,
+        Martial
+    };
+
+    public enum WeaponType
+    {
+        Melee,
+        Ranged
     };
 
 }

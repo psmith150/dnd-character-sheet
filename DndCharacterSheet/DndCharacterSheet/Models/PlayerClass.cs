@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DndCharacterSheet.Models.AbstractClasses
+namespace DndCharacterSheet.Models
 {
-    public abstract class PlayerClass
+    public class PlayerClass
     {
         public PlayerClass()
         {

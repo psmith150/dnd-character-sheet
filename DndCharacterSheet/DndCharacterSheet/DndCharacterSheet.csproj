@@ -19,7 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Screens\" />
+    <Folder Include="Models\AbstractClasses\" />
+    <Folder Include="Views\CustomControls\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="DndCharacterSheet.Views.Screens.CharacterScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DndCharacterSheet.Views.Screens"
+             xmlns:vms="clr-namespace:DndCharacterSheet.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=vms:CharacterScreenViewModel}">
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Name="CharacterBanner" Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <TextBox Text="{Binding ActiveCharacter.Name}"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0" Name="LeftColumnGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0" Name="AbilityPanel" Orientation="Vertical" VerticalAlignment="Stretch">
+                <Label Content="Strength"/>
+                <TextBox Text="{Binding ActiveCharacter.AbilityScores[0].Value}"/>
+                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[0].Value}"/>
+                <Label Content="Dexterity"/>
+                <TextBox Text="{Binding ActiveCharacter.AbilityScores[1].Value}"/>
+                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[1].Value}"/>
+                <Label Content="Constitution"/>
+                <TextBox Text="{Binding ActiveCharacter.AbilityScores[2].Value}"/>
+                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[2].Value}"/>
+                <Label Content="Intelligence"/>
+                <TextBox Text="{Binding ActiveCharacter.AbilityScores[3].Value}"/>
+                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[3].Value}"/>
+                <Label Content="Wisdom"/>
+                <TextBox Text="{Binding ActiveCharacter.AbilityScores[4].Value}"/>
+                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[4].Value}"/>
+                <Label Content="Charisma"/>
+                <TextBox Text="{Binding ActiveCharacter.AbilityScores[5].Value}"/>
+                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[5].Value}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Name="CenterColumnGrid">
+            
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Name="RightColumnGrid">
+
+        </Grid>
+    </Grid>
+</UserControl>

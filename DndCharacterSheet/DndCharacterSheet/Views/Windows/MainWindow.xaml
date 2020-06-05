@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DndCharacterSheet.Views.Windows"
         xmlns:vms="clr-namespace:DndCharacterSheet.ViewModels"
+        xmlns:valueConverters="clr-namespace:DndCharacterSheet.ValueConverters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vms:MainWindowViewModel}"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Window.Resources>
+        <valueConverters:ViewModelToViewConverter x:Key="ViewModelToViewConverter" />
+    </Window.Resources>
+    <Grid Background="White">
+        <ContentPresenter Content="{Binding NavigationService.ActiveViewModel, Converter={StaticResource ViewModelToViewConverter}}" />
     </Grid>
 </Window>

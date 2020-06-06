@@ -7,6 +7,7 @@ using DndCharacterSheet.Models.HelperClasses;
 using System.Windows.Documents;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace DndCharacterSheet.Models
 {
@@ -67,6 +68,33 @@ namespace DndCharacterSheet.Models
             }
         }
 
+
+        private Alignment _Alignment;
+        public Alignment Alignment
+        {
+            get
+            {
+                return this._Alignment;
+            }
+            set
+            {
+                this.Set(ref this._Alignment, value);
+            }
+        }
+
+        private PlayerBackground _Background;
+        public PlayerBackground Background
+        {
+            get
+            {
+                return this._Background;
+            }
+            set
+            {
+                this.Set(ref this._Background, value);
+            }
+        }
+
         private ObservableBool _HasInspiration;
         public ObservableBool HasInspiration
         {
@@ -77,6 +105,268 @@ namespace DndCharacterSheet.Models
             set
             {
                 this.Set(ref this._HasInspiration, value);
+            }
+        }
+
+        private int _ArmorClass;
+        public int ArmorClass
+        {
+            get
+            {
+                return this._ArmorClass;
+            }
+            set
+            {
+                this.Set(ref this._ArmorClass, value);
+            }
+        }
+
+
+        private int _Speed;
+        public int Speed
+        {
+            get
+            {
+                return this._Speed;
+            }
+            set
+            {
+                this.Set(ref this._Speed, value);
+            }
+        }
+
+        private int _DeathSaveSuccesses;
+        public int DeathSaveSuccesses
+        {
+            get
+            {
+                return this._DeathSaveSuccesses;
+            }
+            set
+            {
+                this.Set(ref this._DeathSaveSuccesses, value);
+            }
+        }
+
+        private int _DeathSaveFailures;
+        public int DeathSaveFailures
+        {
+            get
+            {
+                return this._DeathSaveFailures;
+            }
+            set
+            {
+                this.Set(ref this._DeathSaveFailures, value);
+            }
+        }
+        #endregion
+        #region Character Attributes
+        private ObservableCollection<string> _PersonalityTraits;
+        public ObservableCollection<string> PersonalityTraits
+        {
+            get
+            {
+                return this._PersonalityTraits;
+            }
+            set
+            {
+                this.Set(ref this._PersonalityTraits, value);
+            }
+        }
+
+        private ObservableCollection<string> _Ideals;
+        public ObservableCollection<string> Ideals
+        {
+            get
+            {
+                return this._Ideals;
+            }
+            set
+            {
+                this.Set(ref this._Ideals, value);
+            }
+        }
+
+        private ObservableCollection<string> _Bonds;
+        public ObservableCollection<string> Bonds
+        {
+            get
+            {
+                return this._Bonds;
+            }
+            set
+            {
+                this.Set(ref this._Bonds, value);
+            }
+        }
+
+        private ObservableCollection<string> _Flaws;
+        public ObservableCollection<string> Flaws
+        {
+            get
+            {
+                return this._Flaws;
+            }
+            set
+            {
+                this.Set(ref this._Flaws, value);
+            }
+        }
+
+        private int _Age;
+        public int Age
+        {
+            get
+            {
+                return this._Age;
+            }
+            set
+            {
+                this.Set(ref this._Age, value);
+            }
+        }
+
+        private int _Height;
+        public int Height
+        {
+            get
+            {
+                return this._Height;
+            }
+            set
+            {
+                this.Set(ref this._Height, value);
+            }
+        }
+
+        private int _Weight;
+        public int Weight
+        {
+            get
+            {
+                return this._Weight;
+            }
+            set
+            {
+                this.Set(ref this._Weight, value);
+            }
+        }
+
+        private string _EyeColor;
+        public string EyeColor
+        {
+            get
+            {
+                return this._EyeColor;
+            }
+            set
+            {
+                this.Set(ref this._EyeColor, value);
+            }
+        }
+
+        private string _SkinTone;
+        public string SkinTone
+        {
+            get
+            {
+                return this._SkinTone;
+            }
+            set
+            {
+                this.Set(ref this._SkinTone, value);
+            }
+        }
+
+        private string _Hair;
+        public string Hair
+        {
+            get
+            {
+                return this._Hair;
+            }
+            set
+            {
+                this.Set(ref this._Hair, value);
+            }
+        }
+
+        private string _Appearance;
+        public string Appearance
+        {
+            get
+            {
+                return this._Appearance;
+            }
+            set
+            {
+                this.Set(ref this._Appearance, value);
+            }
+        }
+
+        private BitmapImage _Image;
+        public BitmapImage Image
+        {
+            get
+            {
+                return this._Image;
+            }
+            set
+            {
+                this.Set(ref this._Image, value);
+            }
+        }
+
+        private string _Backstory;
+        public string Backstory
+        {
+            get
+            {
+                return this._Backstory;
+            }
+            set
+            {
+                this.Set(ref this._Backstory, value);
+            }
+        }
+
+        private ObservableCollection<string> _AlliesAndOrganizations;
+        public ObservableCollection<string> AlliesAndOrganizations
+        {
+            get
+            {
+                return this._AlliesAndOrganizations;
+            }
+            set
+            {
+                this.Set(ref this._AlliesAndOrganizations, value);
+            }
+        }
+
+        private ObservableCollectionAndMember<ObservableString> _AdditionalFeatures;
+        public ObservableCollectionAndMember<ObservableString> AdditionalFeatures
+        {
+            get
+            {
+                return this._AdditionalFeatures;
+            }
+            set
+            {
+                this.Set(ref this._AdditionalFeatures, value);
+            }
+        }
+
+        private ObservableCollection<string> _Treasure;
+        public ObservableCollection<string> Treasure
+        {
+            get
+            {
+                return this._Treasure;
+            }
+            set
+            {
+                this.Set(ref this._Treasure, value);
             }
         }
         #endregion
@@ -215,6 +505,14 @@ namespace DndCharacterSheet.Models
                 return 10 + this.SkillModifiers[(int)Skill.Investigation].Value;
             }
         }
+
+        public int Initiative
+        {
+            get
+            {
+                return this.AbilityModifiers[(int)Ability.Dexterity].Value;
+            }
+        }
         #endregion
         #region Saving Throws
         private ObservableCollectionAndMember<ObservableInt> _SavingThrowModifiers;
@@ -242,8 +540,88 @@ namespace DndCharacterSheet.Models
             }
         }
         #endregion
+        #region Other Proficiencies
+        private ObservableCollection<string> _Languages;
+        public ObservableCollection<string> Languages
+        {
+            get
+            {
+                return this._Languages;
+            }
+            private set
+            {
+                this.Set(ref this._Languages, value);
+            }
+        }
+
+        private ObservableCollection<string> _OtherProficiencies;
+        public ObservableCollection<string> OtherProficiencies
+        {
+            get
+            {
+                return this._OtherProficiencies;
+            }
+            private set
+            {
+                this.Set(ref this._OtherProficiencies, value);
+            }
+        }
+        #endregion
         #region Equipment
 
+        private ObservableCollectionAndMember<Item> _Equipment;
+        public ObservableCollectionAndMember<Item> Equipment
+        {
+            get
+            {
+                return this._Equipment;
+            }
+            set
+            {
+                this.Set(ref this._Equipment, value);
+            }
+        }
+
+        private ObservableCollectionAndMember<Item> _EquippedItems;
+        public ObservableCollectionAndMember<Item> EquippedItems
+        {
+            get
+            {
+                return this._EquippedItems;
+            }
+            set
+            {
+                this.Set(ref this._EquippedItems, value);
+            }
+        }
+
+        private ObservableCollectionAndMember<Weapon> _EquippedWeapons;
+        public ObservableCollectionAndMember<Weapon> EquippedWeapons
+        {
+            get
+            {
+                return this._EquippedWeapons;
+            }
+            set
+            {
+                this.Set(ref this._EquippedWeapons, value);
+            }
+        }
+        #endregion
+        #region Features and Traits
+
+        private ObservableCollectionAndMember<ObservableString> _Features;
+        public ObservableCollectionAndMember<ObservableString> Features
+        {
+            get
+            {
+                return this._Features;
+            }
+            set
+            {
+                this.Set(ref this._Features, value);
+            }
+        }
         #endregion
         #endregion
 

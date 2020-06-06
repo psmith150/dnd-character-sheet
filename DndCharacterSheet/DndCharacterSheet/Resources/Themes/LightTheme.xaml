@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DndCharacterSheet.Resources.Themes">
+    <!--#region Colors-->
+    <SolidColorBrush x:Key="TextColor" Color="Black"/>
+    <SolidColorBrush x:Key="MainBackgroundColor" Color="WhiteSmoke"/>
+    <!--#region Character Screen-->
+    <SolidColorBrush x:Key="AbilityBorderColor" Color="Black"/>
+    <!--#endregion-->
+    <!--#endregion-->
+</ResourceDictionary>

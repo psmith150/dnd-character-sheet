@@ -8,7 +8,8 @@
         xmlns:valueConverters="clr-namespace:DndCharacterSheet.ValueConverters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vms:MainWindowViewModel}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Style="{StaticResource MainWindowStyle}">
     <Window.Resources>
         <valueConverters:ViewModelToViewConverter x:Key="ViewModelToViewConverter" />
     </Window.Resources>

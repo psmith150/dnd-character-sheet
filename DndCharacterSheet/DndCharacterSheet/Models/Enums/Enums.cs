@@ -68,4 +68,45 @@ namespace DndCharacterSheet.Models.Enums
         Ranged
     };
 
+    public enum Currency
+    {
+        Copper,
+        Silver,
+        Electrum,
+        Gold,
+        Platinum
+    };
+
+    public enum DamageType
+    {
+        Piercing,
+        Slashing,
+        Bludgeoning,
+        Cold,
+        Fire,
+        Lightning,
+        Psychic,
+        Force,
+        Necrotic,
+        Thunder,
+        Acid
+    };
+    public enum Alignment
+    {
+        LawfulGood,
+        NeutralGood,
+        ChaoticGood,
+        LawfulNeutral,
+        Neutral,
+        ChaoticNeutral,
+        LawfulEvil,
+        NeutralEvil,
+        ChaoticEvil
+    };
+
+    public enum Units
+    {
+        Imperial,
+        Metric
+    };
 }

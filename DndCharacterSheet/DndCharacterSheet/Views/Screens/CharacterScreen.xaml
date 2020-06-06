@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DndCharacterSheet.Views.Screens"
              xmlns:vms="clr-namespace:DndCharacterSheet.ViewModels"
+             xmlns:valueConverters="clr-namespace:DndCharacterSheet.ValueConverters"
+             xmlns:customControls="clr-namespace:DndCharacterSheet.Views.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vms:CharacterScreenViewModel}">
@@ -30,25 +32,30 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="0" Grid.Row="0" Name="AbilityPanel" Orientation="Vertical" VerticalAlignment="Stretch">
-                <Label Content="Strength"/>
-                <TextBox Text="{Binding ActiveCharacter.AbilityScores[0].Value}"/>
-                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[0].Value}"/>
-                <Label Content="Dexterity"/>
-                <TextBox Text="{Binding ActiveCharacter.AbilityScores[1].Value}"/>
-                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[1].Value}"/>
-                <Label Content="Constitution"/>
-                <TextBox Text="{Binding ActiveCharacter.AbilityScores[2].Value}"/>
-                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[2].Value}"/>
-                <Label Content="Intelligence"/>
-                <TextBox Text="{Binding ActiveCharacter.AbilityScores[3].Value}"/>
-                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[3].Value}"/>
-                <Label Content="Wisdom"/>
-                <TextBox Text="{Binding ActiveCharacter.AbilityScores[4].Value}"/>
-                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[4].Value}"/>
-                <Label Content="Charisma"/>
-                <TextBox Text="{Binding ActiveCharacter.AbilityScores[5].Value}"/>
-                <TextBlock Text="{Binding ActiveCharacter.AbilityModifiers[5].Value}"/>
+            <StackPanel Grid.Column="0" Grid.Row="0" Name="AbilityPanel" Orientation="Vertical" VerticalAlignment="Stretch" Width="Auto" MinWidth="100">
+                <StackPanel.Resources>
+                    <Style TargetType="customControls:AbilityDisplay">
+                        <Setter Property="Margin" Value="0 2 0 2"/>
+                    </Style>
+                </StackPanel.Resources>
+                <customControls:AbilityDisplay AbilityName="Strength" AbilityScore="{Binding ActiveCharacter.AbilityScores[0].Value}" AbilityModifier="{Binding ActiveCharacter.AbilityModifiers[0].Value}"/>
+                <customControls:AbilityDisplay AbilityName="Dexterity" AbilityScore="{Binding ActiveCharacter.AbilityScores[1].Value}" AbilityModifier="{Binding ActiveCharacter.AbilityModifiers[1].Value}"/>
+                <customControls:AbilityDisplay AbilityName="Constitution" AbilityScore="{Binding ActiveCharacter.AbilityScores[2].Value}" AbilityModifier="{Binding ActiveCharacter.AbilityModifiers[2].Value}"/>
+                <customControls:AbilityDisplay AbilityName="Intelligence" AbilityScore="{Binding ActiveCharacter.AbilityScores[3].Value}" AbilityModifier="{Binding ActiveCharacter.AbilityModifiers[3].Value}"/>
+                <customControls:AbilityDisplay AbilityName="Wisdom" AbilityScore="{Binding ActiveCharacter.AbilityScores[4].Value}" AbilityModifier="{Binding ActiveCharacter.AbilityModifiers[4].Value}"/>
+                <customControls:AbilityDisplay AbilityName="Charisma" AbilityScore="{Binding ActiveCharacter.AbilityScores[5].Value}" AbilityModifier="{Binding ActiveCharacter.AbilityModifiers[5].Value}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="0" Name="SkillPanel" Orientation="Vertical" VerticalAlignment="Stretch" Width="Auto">
+                <CheckBox Content="Inspiration" IsChecked="{Binding ActiveCharacter.HasInspiration.Value}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ActiveCharacter.ProficiencyBonus}" Width="25"/>
+                    <Label Content="Proficiency Bonus"/>
+                </StackPanel>
+                <Border BorderThickness="1">
+                    <ListBox ItemsSource="{Binding ActiveCharacter.SavingThrowProficiencies}" DisplayMemberPath="Value">
+                        
+                    </ListBox>
+                </Border>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1" Name="CenterColumnGrid">

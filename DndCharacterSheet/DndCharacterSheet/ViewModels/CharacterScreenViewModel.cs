@@ -1,6 +1,8 @@
 ﻿using DndCharacterSheet.Models;
+using DndCharacterSheet.Models.Enums;
 using DndCharacterSheet.Services;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Text;
 
@@ -96,6 +98,21 @@ namespace DndCharacterSheet.ViewModels
             set
             {
                 this.Set(ref this._EditModeActive, value);
+            }
+        }
+
+        public Array Abilities
+        {
+            get
+            {
+                return Enum.GetValues(typeof(Ability));
+            }
+        }
+        public Array Skills
+        {
+            get
+            {
+                return Enum.GetValues(typeof(Skill));
             }
         }
         #endregion

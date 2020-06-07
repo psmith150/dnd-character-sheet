@@ -8,12 +8,13 @@
         xmlns:valueConverters="clr-namespace:DndCharacterSheet.ValueConverters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vms:MainWindowViewModel}"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="700" Width="1280"
+        MinHeight="880" MinWidth="800"
         Style="{StaticResource MainWindowStyle}">
     <Window.Resources>
         <valueConverters:ViewModelToViewConverter x:Key="ViewModelToViewConverter" />
     </Window.Resources>
-    <Grid Background="White">
+    <Grid Background="{DynamicResource MainBackgroundColor}">
         <ContentPresenter Content="{Binding NavigationService.ActiveViewModel, Converter={StaticResource ViewModelToViewConverter}}" />
     </Grid>
 </Window>

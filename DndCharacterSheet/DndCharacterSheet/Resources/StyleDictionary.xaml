@@ -9,6 +9,7 @@
     <system:Double x:Key="LargeFontSize">16</system:Double>
     <system:Double x:Key="NormalFontSize">14</system:Double>
     <system:Double x:Key="SmallFontSize">12</system:Double>
+    <system:Double x:Key="ExtraSmallFontSize">10</system:Double>
 
     <Style x:Key="MainWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="SingleBorderWindow"/>
@@ -20,5 +21,43 @@
         <Setter Property="BorderBrush" Value="Gray"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="{DynamicResource MainBackgroundColor}"/>
+    </Style>
+
+    <DataTemplate x:Key="SavingThrowDisplay">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" IsChecked="{Binding IsProficient}" IsEnabled="{Binding DataContext.EditModeActive, 
+                RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" Margin="5 0 0 0" Padding="0"/>
+            <Label Grid.Column="1" Content="{Binding Modifier}" ContentStringFormat="{}{0:+0;-0}" 
+                   FontSize="{StaticResource SmallFontSize}" Margin="5 0 10 0" Padding="0" VerticalAlignment="Center"/>
+            <Label Grid.Column="2" Content="{Binding Name}" FontSize="{StaticResource SmallFontSize}"
+                   Margin="0" Padding="0" VerticalAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="SkillDisplay">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" IsChecked="{Binding IsProficient}" IsEnabled="{Binding DataContext.EditModeActive, 
+                RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" Margin="5 0 0 0" Padding="0"/>
+            <Label Grid.Column="1" Content="{Binding Modifier}" ContentStringFormat="{}{0:+0;-0}" 
+                   FontSize="{StaticResource SmallFontSize}" Margin="5 0 10 0" Padding="0" VerticalAlignment="Center"/>
+            <Label Grid.Column="2" Content="{Binding Name}" FontSize="{StaticResource SmallFontSize}" 
+                   Margin="0" Padding="0" VerticalAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+    <Style x:Key="CharacterSheetSectionLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Margin" Value="0 3 0 1"/>
+        <Setter Property="Padding" Value="0"/>
     </Style>
 </ResourceDictionary>

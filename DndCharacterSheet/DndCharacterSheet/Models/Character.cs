@@ -17,16 +17,16 @@ namespace DndCharacterSheet.Models
         public Character()
         {
             this.HasInspiration = new ObservableBool(false);
+            this.MapSkillsToAbilities();
             this.InitializeAbilities();
             this.InitializeSkills();
-            this.MapSkillsToAbilities();
             this.PropertyChanged += this.PropertyChangedManager;
         }
 
         #endregion
 
         #region Private Fields
-        private Ability[] SkillAbility;
+        private Enums.Ability[] SkillAbility;
         #endregion
 
         #region Public Properties
@@ -440,69 +440,44 @@ namespace DndCharacterSheet.Models
         }
         #endregion
         #region Abilities
-        private ObservableCollectionAndMember<ObservableInt> _AbilityScores;
-        public ObservableCollectionAndMember<ObservableInt> AbilityScores
+        private ObservableCollectionAndMember<Ability> _Abilities;
+        public ObservableCollectionAndMember<Ability> Abilities
         {
             get
             {
-                return this._AbilityScores;
+                return this._Abilities;
             }
             private set
             {
-                this.Set(ref this._AbilityScores, value);
-            }
-        }
-
-        private ObservableCollectionAndMember<ObservableInt> _AbilityModifiers;
-        public ObservableCollectionAndMember<ObservableInt> AbilityModifiers
-        {
-            get
-            {
-                return this._AbilityModifiers;
-            }
-            private set
-            {
-                this.Set(ref this._AbilityModifiers, value);
+                this.Set(ref this._Abilities, value);
             }
         }
         #endregion
         #region Skills
-        private ObservableCollectionAndMember<ObservableInt> _SkillModifiers;
-        public ObservableCollectionAndMember<ObservableInt> SkillModifiers
+        private ObservableCollectionAndMember<Skill> _Skills;
+        public ObservableCollectionAndMember<Skill> Skills
         {
             get
             {
-                return this._SkillModifiers;
+                return this._Skills;
             }
             private set
             {
-                this.Set(ref this._SkillModifiers, value);
-            }
-        }
-        private ObservableCollectionAndMember<ObservableBool> _SkillProficiencies;
-        public ObservableCollectionAndMember<ObservableBool> SkillProficiencies
-        {
-            get
-            {
-                return this._SkillProficiencies;
-            }
-            set
-            {
-                this.Set(ref this._SkillProficiencies, value);
+                this.Set(ref this._Skills, value);
             }
         }
         public int PassivePerception
         {
             get
             {
-                return 10 + this.SkillModifiers[(int)Skill.Perception].Value;
+                return 10 + this.Skills[(int)Enums.Skill.Perception].Modifier;
             }
         }
         public int PassiveInvestigation
         {
             get
             {
-                return 10 + this.SkillModifiers[(int)Skill.Investigation].Value;
+                return 10 + this.Skills[(int)Enums.Skill.Investigation].Modifier;
             }
         }
 
@@ -510,33 +485,21 @@ namespace DndCharacterSheet.Models
         {
             get
             {
-                return this.AbilityModifiers[(int)Ability.Dexterity].Value;
+                return this.Abilities[(int)Enums.Ability.Dexterity].Modifier;
             }
         }
         #endregion
         #region Saving Throws
-        private ObservableCollectionAndMember<ObservableInt> _SavingThrowModifiers;
-        public ObservableCollectionAndMember<ObservableInt> SavingThrowModifiers
+        private ObservableCollectionAndMember<SavingThrow> _SavingThrows;
+        public ObservableCollectionAndMember<SavingThrow> SavingThrows
         {
             get
             {
-                return this._SavingThrowModifiers;
+                return this._SavingThrows;
             }
             private set
             {
-                this.Set(ref this._SavingThrowModifiers, value);
-            }
-        }
-        private ObservableCollectionAndMember<ObservableBool> _SavingThrowProficiencies;
-        public ObservableCollectionAndMember<ObservableBool> SavingThrowProficiencies
-        {
-            get
-            {
-                return this._SavingThrowProficiencies;
-            }
-            set
-            {
-                this.Set(ref this._SavingThrowProficiencies, value);
+                this.Set(ref this._SavingThrows, value);
             }
         }
         #endregion
@@ -551,6 +514,13 @@ namespace DndCharacterSheet.Models
             private set
             {
                 this.Set(ref this._Languages, value);
+            }
+        }
+        public string LanguagesString
+        {
+            get
+            {
+                return this.FormatLanguageString();
             }
         }
 
@@ -639,78 +609,50 @@ namespace DndCharacterSheet.Models
         #region Private Methods
         private void MapSkillsToAbilities()
         {
-            this.SkillAbility = new Ability[Enum.GetNames(typeof(Skill)).Length];
-            this.SkillAbility[(int)Skill.Acrobatics] = Ability.Dexterity;
-            this.SkillAbility[(int)Skill.AnimalHandling] = Ability.Wisdom;
-            this.SkillAbility[(int)Skill.Arcana] = Ability.Intelligence;
-            this.SkillAbility[(int)Skill.Athletics] = Ability.Strength;
-            this.SkillAbility[(int)Skill.Deception] = Ability.Charisma;
-            this.SkillAbility[(int)Skill.History] = Ability.Intelligence;
-            this.SkillAbility[(int)Skill.Insight] = Ability.Wisdom;
-            this.SkillAbility[(int)Skill.Intimidation] = Ability.Charisma;
-            this.SkillAbility[(int)Skill.Investigation] = Ability.Intelligence;
-            this.SkillAbility[(int)Skill.Medicine] = Ability.Wisdom;
-            this.SkillAbility[(int)Skill.Nature] = Ability.Wisdom;
-            this.SkillAbility[(int)Skill.Perception] = Ability.Wisdom;
-            this.SkillAbility[(int)Skill.Performance] = Ability.Charisma;
-            this.SkillAbility[(int)Skill.Persuasion] = Ability.Charisma;
-            this.SkillAbility[(int)Skill.Religion] = Ability.Intelligence;
-            this.SkillAbility[(int)Skill.SleightofHand] = Ability.Dexterity;
-            this.SkillAbility[(int)Skill.Stealth] = Ability.Dexterity;
-            this.SkillAbility[(int)Skill.Survival] = Ability.Wisdom;
+            this.SkillAbility = new Enums.Ability[Enum.GetNames(typeof(Enums.Skill)).Length];
+            this.SkillAbility[(int)Enums.Skill.Acrobatics] = Enums.Ability.Dexterity;
+            this.SkillAbility[(int)Enums.Skill.AnimalHandling] = Enums.Ability.Wisdom;
+            this.SkillAbility[(int)Enums.Skill.Arcana] = Enums.Ability.Intelligence;
+            this.SkillAbility[(int)Enums.Skill.Athletics] = Enums.Ability.Strength;
+            this.SkillAbility[(int)Enums.Skill.Deception] = Enums.Ability.Charisma;
+            this.SkillAbility[(int)Enums.Skill.History] = Enums.Ability.Intelligence;
+            this.SkillAbility[(int)Enums.Skill.Insight] = Enums.Ability.Wisdom;
+            this.SkillAbility[(int)Enums.Skill.Intimidation] = Enums.Ability.Charisma;
+            this.SkillAbility[(int)Enums.Skill.Investigation] = Enums.Ability.Intelligence;
+            this.SkillAbility[(int)Enums.Skill.Medicine] = Enums.Ability.Wisdom;
+            this.SkillAbility[(int)Enums.Skill.Nature] = Enums.Ability.Wisdom;
+            this.SkillAbility[(int)Enums.Skill.Perception] = Enums.Ability.Wisdom;
+            this.SkillAbility[(int)Enums.Skill.Performance] = Enums.Ability.Charisma;
+            this.SkillAbility[(int)Enums.Skill.Persuasion] = Enums.Ability.Charisma;
+            this.SkillAbility[(int)Enums.Skill.Religion] = Enums.Ability.Intelligence;
+            this.SkillAbility[(int)Enums.Skill.SleightofHand] = Enums.Ability.Dexterity;
+            this.SkillAbility[(int)Enums.Skill.Stealth] = Enums.Ability.Dexterity;
+            this.SkillAbility[(int)Enums.Skill.Survival] = Enums.Ability.Wisdom;
         }
         private void InitializeAbilities()
         {
-            this.AbilityScores = new ObservableCollectionAndMember<ObservableInt>();
-            this.AbilityModifiers = new ObservableCollectionAndMember<ObservableInt>();
-            this.SavingThrowModifiers = new ObservableCollectionAndMember<ObservableInt>();
-            this.SavingThrowProficiencies = new ObservableCollectionAndMember<ObservableBool>();
-            foreach (Ability ability in Enum.GetValues(typeof(Ability)))
+            this.Abilities = new ObservableCollectionAndMember<Ability>();
+            this.SavingThrows = new ObservableCollectionAndMember<SavingThrow>();
+            foreach (Enums.Ability ability in Enum.GetValues(typeof(Enums.Ability)))
             {
-                ObservableInt abilityScore = new ObservableInt();
-                abilityScore.PropertyChanged += this.AbilityScoreChanged;
-                this.AbilityScores.Add(abilityScore);
+                Ability newAbility = new Ability(ability.GetDescription());
+                this.Abilities.Add(newAbility);
 
-                ObservableInt abilityModifier = new ObservableInt();
-                abilityModifier.PropertyChanged += this.AbilityModifierChanged;
-                this.AbilityModifiers.Add(abilityModifier);
-
-                ObservableInt savingThrowModifier = new ObservableInt();
-                this.SavingThrowModifiers.Add(savingThrowModifier);
-
-                ObservableBool savingThrowProficiency = new ObservableBool();
-                this.SavingThrowProficiencies.Add(savingThrowProficiency);
+                SavingThrow savingThrow = new SavingThrow(newAbility);
+                savingThrow.ProficiencyBonus = this.ProficiencyBonus;
+                this.SavingThrows.Add(savingThrow);
             }
         }
         private void InitializeSkills()
         {
-            this.SkillProficiencies = new ObservableCollectionAndMember<ObservableBool>();
-            this.SkillModifiers = new ObservableCollectionAndMember<ObservableInt>();
-            foreach (Skill skill in Enum.GetValues(typeof(Skill)))
+            this.Skills = new ObservableCollectionAndMember<Skill>();
+            foreach (Enums.Skill skill in Enum.GetValues(typeof(Enums.Skill)))
             {
-                ObservableBool skillProficiency = new ObservableBool();
-                this.SkillProficiencies.Add(skillProficiency);
-                ObservableInt skillModifier = new ObservableInt();
-                this.SkillModifiers.Add(skillModifier);
+                int index = (int)this.SkillAbility[(int)skill];
+                Skill newSkill = new Skill(this.Abilities[index], skill.GetDescription());
+                newSkill.ProficiencyBonus = this.ProficiencyBonus;
+                this.Skills.Add(newSkill);
             }
-        }
-        private void SetAbilityModifier(Ability ability)
-        {
-            this.AbilityModifiers[(int)ability].Value = (int)Math.Floor((this.AbilityScores[(int)ability].Value - 10) / 2.0);
-        }
-        private void SetSkillModifier(Skill skill)
-        {
-            int modifier = this.AbilityModifiers[(int)this.SkillAbility[(int)skill]].Value;
-            if (this.SkillProficiencies[(int)skill].Value)
-                modifier += this.ProficiencyBonus;
-            this.SkillModifiers[(int)skill].Value = modifier;
-        }
-        private void SetSavingThrowModifier(Ability ability)
-        {
-            int modifier = this.AbilityModifiers[(int)ability].Value;
-            if (this.SavingThrowProficiencies[(int)ability].Value)
-                modifier += this.ProficiencyBonus;
-            this.SavingThrowModifiers[(int)ability].Value = modifier;
         }
         private int CalculateProficiencyBonus()
         {
@@ -738,25 +680,51 @@ namespace DndCharacterSheet.Models
             }
             return bonus;
         }
+        //TODO: implement CalculateTotalLevel()
         private int CalculateTotalLevel()
         {
             int level = 0;
             return level;
         }
+        //TODO: Call on level up
         private void UpdateProficiencyBonus()
         {
             this.RaisePropertyChanged(nameof(this.ProficiencyBonus));
+            this.UpdateProficiencies();
         }
         private void UpdateProficiencies()
         {
-            foreach (Skill skill in Enum.GetValues(typeof(Skill)).OfType<Skill>().Where(x => this.SkillProficiencies[(int)x].Value))
+            int bonus = this.CalculateProficiencyBonus();
+            // Update saving throws
+            foreach (SavingThrow savingThrow in this.SavingThrows)
             {
-                this.SetSkillModifier(skill);
+                savingThrow.ProficiencyBonus = bonus;
             }
-            foreach (Ability ability in Enum.GetValues(typeof(Ability)).OfType<Ability>().Where(x => this.SavingThrowProficiencies[(int)x].Value))
+            // Update skills
+            foreach (Skill skill in this.Skills)
             {
-                this.SetSavingThrowModifier(ability);
+                skill.ProficiencyBonus = bonus;
             }
+        }
+        private string FormatLanguageString()
+        {
+            string languages = "Languages: ";
+            if (this.Languages is null || this.Languages.Count <= 0)
+            {
+                languages += "None";
+            }
+            else
+            {
+                for(int index = 0; index < this.Languages.Count; index++)
+                {
+                    languages += this.Languages[index];
+                    if (index < this.Languages.Count - 1)
+                    {
+                        languages += ", ";
+                    }
+                }
+            }
+            return languages;
         }
         private void PropertyChangedManager(object sender, PropertyChangedEventArgs e)
         {
@@ -767,23 +735,6 @@ namespace DndCharacterSheet.Models
                     break;
                 default:
                     return;
-            }
-        }
-        private void AbilityScoreChanged(object sender, PropertyChangedEventArgs e)
-        {
-            int index = this.AbilityScores.IndexOf(sender as ObservableInt);
-            if (index == -1)
-                return;
-            this.SetAbilityModifier((Ability)index);
-        }
-        private void AbilityModifierChanged(object sender, PropertyChangedEventArgs e)
-        {
-            int index = this.AbilityModifiers.IndexOf(sender as ObservableInt);
-            if (index == -1)
-                return;
-            foreach (Skill skill in this.SkillAbility.Where(x => x == (Ability)index))
-            {
-                this.SetSkillModifier(skill);
             }
         }
         #endregion

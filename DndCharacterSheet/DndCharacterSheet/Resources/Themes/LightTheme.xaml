@@ -5,7 +5,9 @@
     <SolidColorBrush x:Key="TextColor" Color="Black"/>
     <SolidColorBrush x:Key="MainBackgroundColor" Color="WhiteSmoke"/>
     <!--#region Character Screen-->
-    <SolidColorBrush x:Key="AbilityBorderColor" Color="Black"/>
+    <SolidColorBrush x:Key="CharacterSheetBackgroundColor" Color="WhiteSmoke"/>
+    <SolidColorBrush x:Key="CharacterSheetSectionBorderColor" Color="Black"/>
+    <SolidColorBrush x:Key="CharacterSheetSectionBackgroundColor" Color="LightSlateGray" Opacity="0.35"/>
     <!--#endregion-->
     <!--#endregion-->
 </ResourceDictionary>

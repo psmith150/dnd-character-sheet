@@ -4,20 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DndCharacterSheet.Views.CustomControls"
-             xmlns:customControls="clr-namespace:DndCharacterSheet.ValueConverters"
+             xmlns:converters="clr-namespace:DndCharacterSheet.ValueConverters"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="75"
              x:Name="AbilityDisplayControl">
     <UserControl.Resources>
-        <customControls:BooleanToVisibilityConverter x:Key="TrueToVisibleConverter"/>
-        <customControls:BooleanToVisibilityConverter x:Key="FalseToVisibleConverter" IsReversed="True"/>
+        <converters:BooleanToVisibilityConverter x:Key="TrueToVisibleConverter"/>
+        <converters:BooleanToVisibilityConverter x:Key="FalseToVisibleConverter" IsReversed="True"/>
     </UserControl.Resources>
-    <Border BorderThickness="1" BorderBrush="{DynamicResource AbilityBorderColor}" Width="95">
-        <DockPanel Height="Auto" HorizontalAlignment="Center">
-            <Label DockPanel.Dock="Top" Content="{Binding AbilityName, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" Width="90" HorizontalContentAlignment="Center" FontSize="{StaticResource NormalFontSize}"/>
-            <TextBlock DockPanel.Dock="Bottom" Text="{Binding AbilityModifier, StringFormat={}{0:+0;-0}, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" TextAlignment="Center" Width="25" FontSize="{StaticResource SmallFontSize}"/>
-            <TextBox Text="{Binding AbilityScore, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" Width="25" Height="Auto" FontSize="{StaticResource NormalFontSize}" TextAlignment="Center" Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource TrueToVisibleConverter}}"/>
-            <TextBlock Text="{Binding AbilityScore, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" Width="25" Height="Auto" FontSize="{StaticResource NormalFontSize}" TextAlignment="Center" Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource FalseToVisibleConverter}}"/>
+    <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Width="95" Height="60" Background="{DynamicResource CharacterSheetBackgroundColor}" CornerRadius="7">
+        <DockPanel Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+            <Label DockPanel.Dock="Top" Content="{Binding Ability.Name, ElementName=AbilityDisplayControl}" 
+                   HorizontalAlignment="Center" Width="90" HorizontalContentAlignment="Center" 
+                   FontSize="{StaticResource NormalFontSize}" Padding="0" Margin="0" FontWeight="DemiBold"/>
+            <TextBlock DockPanel.Dock="Bottom" Text="{Binding Ability.Modifier, StringFormat={}{0:+0;-0}, 
+                ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" TextAlignment="Center" 
+                    Width="25" FontSize="{StaticResource SmallFontSize}"/>
+            <Grid>
+                <TextBox Text="{Binding Ability.BaseScore, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" 
+                         Width="25" Height="20" FontSize="{StaticResource NormalFontSize}" TextAlignment="Center" 
+                         Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource TrueToVisibleConverter}}"/>
+                <TextBlock Text="{Binding Ability.TotalScore, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" 
+                           Width="25" FontSize="{StaticResource NormalFontSize}" TextAlignment="Center" 
+                           Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource FalseToVisibleConverter}}"/>
+            </Grid>
         </DockPanel>
     </Border>
 </UserControl>

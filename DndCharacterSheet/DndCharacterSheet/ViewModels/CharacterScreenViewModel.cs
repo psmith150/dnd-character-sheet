@@ -105,14 +105,14 @@ namespace DndCharacterSheet.ViewModels
         {
             get
             {
-                return Enum.GetValues(typeof(Ability));
+                return Enum.GetValues(typeof(Models.Enums.Ability));
             }
         }
         public Array Skills
         {
             get
             {
-                return Enum.GetValues(typeof(Skill));
+                return Enum.GetValues(typeof(Models.Enums.Skill));
             }
         }
         #endregion

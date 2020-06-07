@@ -1,4 +1,4 @@
-﻿using DndCharacterSheet.Models.Enums;
+﻿using DndCharacterSheet.Models;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -26,20 +26,20 @@ namespace DndCharacterSheet.Views.CustomControls
         }
 
         #region Properties
-        public static readonly DependencyProperty AbilityScoreProperty = DependencyProperty.Register(nameof(AbilityScore), typeof(int), typeof(AbilityDisplay), new FrameworkPropertyMetadata
+        public static readonly DependencyProperty AbilityProperty = DependencyProperty.Register(nameof(Ability), typeof(Ability), typeof(AbilityDisplay), new FrameworkPropertyMetadata
         {
             BindsTwoWayByDefault = true,
-            DefaultValue=0,
+            DefaultValue= new Ability("Unknown", 0),
         });   
-        public int AbilityScore
+        public Ability Ability
         {
             get
             {
-                return (int)GetValue(AbilityScoreProperty);
+                return (Ability)GetValue(AbilityProperty);
             }
             set
             {
-                SetValue(AbilityScoreProperty, value);
+                SetValue(AbilityProperty, value);
             }
         }
         public static readonly DependencyProperty AbilityModifierProperty = DependencyProperty.Register(nameof(AbilityModifier), typeof(int), typeof(AbilityDisplay), new FrameworkPropertyMetadata(0));

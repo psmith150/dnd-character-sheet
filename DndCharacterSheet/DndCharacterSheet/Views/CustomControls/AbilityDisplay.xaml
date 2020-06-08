@@ -12,7 +12,7 @@
         <converters:BooleanToVisibilityConverter x:Key="TrueToVisibleConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="FalseToVisibleConverter" IsReversed="True"/>
     </UserControl.Resources>
-    <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Width="95" Height="60" Background="{DynamicResource CharacterSheetBackgroundColor}" CornerRadius="7">
+    <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Width="95" Height="60" Background="{DynamicResource CharacterSheetBackgroundColor}" CornerRadius="7" ToolTip="{Binding Ability.Description, ElementName=AbilityDisplayControl}">
         <DockPanel Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Stretch">
             <Label DockPanel.Dock="Top" Content="{Binding Ability.Name, ElementName=AbilityDisplayControl}" 
                    HorizontalAlignment="Center" Width="90" HorizontalContentAlignment="Center" 
@@ -23,10 +23,12 @@
             <Grid>
                 <TextBox Text="{Binding Ability.BaseScore, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" 
                          Width="25" Height="20" FontSize="{StaticResource NormalFontSize}" TextAlignment="Center" 
-                         Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource TrueToVisibleConverter}}"/>
+                         Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource TrueToVisibleConverter}}"
+                         VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Ability.TotalScore, ElementName=AbilityDisplayControl}" HorizontalAlignment="Center" 
                            Width="25" FontSize="{StaticResource NormalFontSize}" TextAlignment="Center" 
-                           Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource FalseToVisibleConverter}}"/>
+                           Visibility="{Binding EditEnabled, ElementName=AbilityDisplayControl, Converter={StaticResource FalseToVisibleConverter}}"
+                           VerticalAlignment="Center"/>
             </Grid>
         </DockPanel>
     </Border>

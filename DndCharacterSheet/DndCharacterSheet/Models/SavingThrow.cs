@@ -147,6 +147,7 @@ namespace DndCharacterSheet.Models
             {
                 description += $"{modifier.Modifier:+0;-0} from {modifier.Source}\n";
             }
+            description = description.Trim();
             return description;
         }
         private string GetProficiencyBonusSource()

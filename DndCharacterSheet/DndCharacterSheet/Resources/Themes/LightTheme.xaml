@@ -4,10 +4,21 @@
     <!--#region Colors-->
     <SolidColorBrush x:Key="TextColor" Color="Black"/>
     <SolidColorBrush x:Key="MainBackgroundColor" Color="WhiteSmoke"/>
+    <SolidColorBrush x:Key="MainNavigationButtonBackgroundColor"  Color="#CCE0E0E0"/>
+    <SolidColorBrush x:Key="MainNavigationButtonHoverBackgroundColor"  Color="#8C54B8FD"/>
+    <SolidColorBrush x:Key="MainNavigationButtonSelectedBackgroundColor"  Color="#BF0546FF"/>
+    <SolidColorBrush x:Key="MainNavigationButtonSelectedForegroundColor"  Color="White" />
+    <SolidColorBrush x:Key="MainNavigationBarColor" Color="Gray"/>
+    <SolidColorBrush x:Key="MainNavigationButtonBorderColor" Color="Black"/>
     <!--#region Character Screen-->
     <SolidColorBrush x:Key="CharacterSheetBackgroundColor" Color="WhiteSmoke"/>
     <SolidColorBrush x:Key="CharacterSheetSectionBorderColor" Color="Black"/>
     <SolidColorBrush x:Key="CharacterSheetSectionBackgroundColor" Color="LightSlateGray" Opacity="0.35"/>
+    <SolidColorBrush x:Key="NavigationButtonBackgroundColor"  Color="#CCE0E0E0"/>
+    <SolidColorBrush x:Key="NavigationButtonHoverBackgroundColor"  Color="#8C54B8FD"/>
+    <SolidColorBrush x:Key="NavigationButtonSelectedBackgroundColor"  Color="#BF0546FF"/>
+    <SolidColorBrush x:Key="NavigationButtonSelectedForegroundColor"  Color="White" />
+    <SolidColorBrush x:Key="NavigationBarColor" Color="Gray"/>
     <!--#endregion-->
     <!--#endregion-->
 </ResourceDictionary>

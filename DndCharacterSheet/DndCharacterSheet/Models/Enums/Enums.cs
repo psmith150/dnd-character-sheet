@@ -29,24 +29,24 @@ namespace DndCharacterSheet.Models.Enums
 
     public enum Skill
     {
-        Acrobatics,
-        AnimalHandling,
-        Arcana,
-        Athletics,
-        Deception,
-        History,
-        Insight,
-        Intimidation,
-        Investigation,
-        Medicine,
-        Nature,
-        Perception,
-        Performance,
-        Persuasion,
-        Religion,
-        SleightofHand,
-        Stealth,
-        Survival
+        [Display(Description = "Acrobatics")] Acrobatics,
+        [Display(Description = "Animal Handling")] AnimalHandling,
+        [Display(Description = "Arcana")] Arcana,
+        [Display(Description = "Athletics")] Athletics,
+        [Display(Description = "Deception")] Deception,
+        [Display(Description = "History")] History,
+        [Display(Description = "Insight")] Insight,
+        [Display(Description = "Intimidation")] Intimidation,
+        [Display(Description = "Investigation")] Investigation,
+        [Display(Description = "Medicine")] Medicine,
+        [Display(Description = "Nature")] Nature,
+        [Display(Description = "Perception")] Perception,
+        [Display(Description = "Performance")] Performance,
+        [Display(Description = "Persuasion")] Persuasion,
+        [Display(Description = "Religion")] Religion,
+        [Display(Description = "Sleight of Hand")] SleightofHand,
+        [Display(Description = "Stealth")] Stealth,
+        [Display(Description = "Survival")] Survival
     };
 
     public enum Modifier
@@ -96,15 +96,15 @@ namespace DndCharacterSheet.Models.Enums
     };
     public enum Alignment
     {
-        LawfulGood,
-        NeutralGood,
-        ChaoticGood,
-        LawfulNeutral,
-        Neutral,
-        ChaoticNeutral,
-        LawfulEvil,
-        NeutralEvil,
-        ChaoticEvil
+        [Display(Description = "Lawful Good")] LawfulGood,
+        [Display(Description = "Neutral Good")] NeutralGood,
+        [Display(Description = "Chaotic Good")] ChaoticGood,
+        [Display(Description = "Lawful Neutral")] LawfulNeutral,
+        [Display(Description = "Neutral")] Neutral,
+        [Display(Description = "Chaotic Neutral")] ChaoticNeutral,
+        [Display(Description = "Lawful Evil")] LawfulEvil,
+        [Display(Description = "Neutral Evil")] NeutralEvil,
+        [Display(Description = "Chaotic Evil")] ChaoticEvil
     };
 
     public enum Units

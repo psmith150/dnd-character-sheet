@@ -16,10 +16,24 @@ namespace DndCharacterSheet.Models
         #region Constructor
         public Character()
         {
-            this.HasInspiration = new ObservableBool(false);
             this.MapSkillsToAbilities();
             this.InitializeAbilities();
             this.InitializeSkills();
+
+            this.HasInspiration = new ObservableBool(false);
+            this.PersonalityTraits = new ObservableCollection<string>();
+            this.Ideals = new ObservableCollection<string>();
+            this.Bonds = new ObservableCollection<string>();
+            this.Flaws = new ObservableCollection<string>();
+            this.AlliesAndOrganizations = new ObservableCollection<string>();
+            this.AdditionalFeatures = new ObservableCollectionAndMember<ObservableString>();
+            this.Treasure = new ObservableCollection<string>();
+            this.Languages = new ObservableCollection<string>();
+            this.OtherProficiencies = new ObservableCollection<string>();
+            this.Equipment = new ObservableCollectionAndMember<Item>();
+            this.EquippedItems = new ObservableCollectionAndMember<Item>();
+            this.EquippedWeapons = new ObservableCollectionAndMember<Weapon>();
+            this.Features = new ObservableCollectionAndMember<ObservableString>();
             this.PropertyChanged += this.PropertyChangedManager;
         }
 
@@ -577,6 +591,71 @@ namespace DndCharacterSheet.Models
                 this.Set(ref this._EquippedWeapons, value);
             }
         }
+
+        private int _CopperPieces;
+        public int CopperPieces
+        {
+            get
+            {
+                return this._CopperPieces;
+            }
+            set
+            {
+                this.Set(ref this._CopperPieces, value);
+            }
+        }
+
+        private int _SilverPieces;
+        public int SilverPieces
+        {
+            get
+            {
+                return this._SilverPieces;
+            }
+            set
+            {
+                this.Set(ref this._SilverPieces, value);
+            }
+        }
+
+        private int _ElectrumPieces;
+        public int ElectrumPieces
+        {
+            get
+            {
+                return this._ElectrumPieces;
+            }
+            set
+            {
+                this.Set(ref this._ElectrumPieces, value);
+            }
+        }
+
+        private int _GoldPieces;
+        public int GoldPieces
+        {
+            get
+            {
+                return this._GoldPieces;
+            }
+            set
+            {
+                this.Set(ref this._GoldPieces, value);
+            }
+        }
+
+        private int _PlatinumPieces;
+        public int PlatinumPieces
+        {
+            get
+            {
+                return this._PlatinumPieces;
+            }
+            set
+            {
+                this.Set(ref this._PlatinumPieces, value);
+            }
+        }
         #endregion
         #region Features and Traits
 
@@ -636,6 +715,10 @@ namespace DndCharacterSheet.Models
             foreach (Enums.Ability ability in Enum.GetValues(typeof(Enums.Ability)))
             {
                 Ability newAbility = new Ability(ability.GetDescription());
+                if (ability == Enums.Ability.Dexterity)
+                {
+                    newAbility.PropertyChanged += this.DexterityChanged;
+                }
                 this.Abilities.Add(newAbility);
 
                 SavingThrow savingThrow = new SavingThrow(newAbility);
@@ -650,6 +733,14 @@ namespace DndCharacterSheet.Models
             {
                 int index = (int)this.SkillAbility[(int)skill];
                 Skill newSkill = new Skill(this.Abilities[index], skill.GetDescription());
+                if (skill == Enums.Skill.Investigation)
+                {
+                    newSkill.PropertyChanged += this.InvestigationChanged;
+                }
+                else if (skill == Enums.Skill.Perception)
+                {
+                    newSkill.PropertyChanged += this.PerceptionChanged;
+                }
                 newSkill.ProficiencyBonus = this.ProficiencyBonus;
                 this.Skills.Add(newSkill);
             }
@@ -704,6 +795,32 @@ namespace DndCharacterSheet.Models
             foreach (Skill skill in this.Skills)
             {
                 skill.ProficiencyBonus = bonus;
+            }
+        }
+        private void PerceptionChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is Skill skill)
+            {
+                if (e.PropertyName.Equals(nameof(Skill.Modifier)))
+                {
+                    this.RaisePropertyChanged(nameof(this.PassivePerception));
+
+                }
+            }
+        }
+        private void InvestigationChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals(nameof(Skill.Modifier)))
+            {
+                this.RaisePropertyChanged(nameof(this.PassiveInvestigation));
+
+            }
+        }
+        private void DexterityChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is Ability ability)
+            {
+                this.RaisePropertyChanged(nameof(this.Initiative));
             }
         }
         private string FormatLanguageString()

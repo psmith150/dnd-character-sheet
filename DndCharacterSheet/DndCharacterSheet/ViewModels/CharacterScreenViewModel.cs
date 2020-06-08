@@ -5,21 +5,45 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using DndCharacterSheet.Models.HelperClasses;
 
 namespace DndCharacterSheet.ViewModels
 {
     public class CharacterScreenViewModel : ScreenViewModel
     {
+        #region Constants
+        private const int SUBSCREEN_OVERVIEW = 1;
+        private const int SUBSCREEN_CHARACTERDETAILS = 2;
+        private const int SUBSCREEN_INVENTORY = 3;
+        private const int SUBSCREEN_SPELLS = 4;
+        private const int SUBSCREEN_COMBAT = 5;
+        #endregion
         public CharacterScreenViewModel(SessionService session) : base(session)
         {
-            this.ActiveCharacter = new Character();
-            this.EditModeActive = true;
+            // Initialize Commands
+            this.ShowOverviewCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_OVERVIEW));
+            this.ShowCharacterDetailsCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_CHARACTERDETAILS));
+            this.ShowInventoryCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_INVENTORY));
+            this.ShowSpellsCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_SPELLS));
+            this.ShowCombatCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_COMBAT));
+
+            this.CreateTestCharacter(); // TODO remove
         }
+        #region Commands
+        public ICommand ShowOverviewCommand { get; private set; }
+        public ICommand ShowCharacterDetailsCommand { get; private set; }
+        public ICommand ShowInventoryCommand { get; private set; }
+        public ICommand ShowSpellsCommand { get; private set; }
+        public ICommand ShowCombatCommand { get; private set; }
+        #endregion
         public override void Deinitialize()
         {
         }
         public override void Initialize()
         {
+            this.ShowSubscreen(SUBSCREEN_OVERVIEW);
         }
 
         #region Public Properties
@@ -113,6 +137,90 @@ namespace DndCharacterSheet.ViewModels
             get
             {
                 return Enum.GetValues(typeof(Models.Enums.Skill));
+            }
+        }
+        public Array Alignments
+        {
+            get
+            {
+                return Enum.GetValues(typeof(Models.Enums.Alignment));
+            }
+        }
+        #endregion
+        #region Private Methods
+        private void CreateTestCharacter()
+        {
+            Character character = new Character();
+            for (int i=0; i<5; i++)
+            {
+                character.OtherProficiencies.Add("Test proficiency");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                character.Ideals.Add("Test ideal");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                character.Bonds.Add("Test bond");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                character.PersonalityTraits.Add("Test trait");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                character.Flaws.Add("Test flaw");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                character.Languages.Add("Test language");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                character.Features.Add(new ObservableString("Test feature"));
+            }
+            this.ActiveCharacter = character;
+        }
+        private void ShowSubscreen(int screen)
+        {
+            switch(screen)
+            {
+                case SUBSCREEN_OVERVIEW:
+                    this.OverviewViewActive = true;
+                    this.SpellViewActive = false;
+                    this.InventoryViewActive = false;
+                    this.CombatViewActive = false;
+                    break;
+                case SUBSCREEN_CHARACTERDETAILS:
+                    this.OverviewViewActive = false;
+                    this.SpellViewActive = false;
+                    this.InventoryViewActive = false;
+                    this.CombatViewActive = false;
+                    break;
+                case SUBSCREEN_INVENTORY:
+                    this.OverviewViewActive = false;
+                    this.SpellViewActive = false;
+                    this.InventoryViewActive = true;
+                    this.CombatViewActive = false;
+                    break;
+                case SUBSCREEN_SPELLS:
+                    this.OverviewViewActive = false;
+                    this.SpellViewActive = true;
+                    this.InventoryViewActive = false;
+                    this.CombatViewActive = false;
+                    break;
+                case SUBSCREEN_COMBAT:
+                    this.OverviewViewActive = false;
+                    this.SpellViewActive = false;
+                    this.InventoryViewActive = false;
+                    this.CombatViewActive = true;
+                    break;
+                default:
+                    this.OverviewViewActive = true;
+                    this.SpellViewActive = false;
+                    this.InventoryViewActive = false;
+                    this.CombatViewActive = false;
+                    break;
             }
         }
         #endregion

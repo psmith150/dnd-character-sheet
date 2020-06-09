@@ -19,11 +19,11 @@
         <CollectionViewSource x:Key="AlignmentCollection" Source="{Binding Alignments}"/>
     </UserControl.Resources>
     <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">-->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Name="NavGrid" Background="{DynamicResource NavigationBarColor}">
             <UniformGrid  VerticalAlignment="Top" Columns="1" Margin="2 0 2 0">
                 <UniformGrid.Resources>
@@ -46,7 +46,7 @@
                 </UniformGrid.Resources>
                 <customControls:NavButton Content="Overview" VerticalAlignment="Top" IsEnabled="{Binding OverviewViewActive, Converter={StaticResource InverseBooleanConverter}}"
                                       Command="{Binding ShowOverviewCommand}"/>
-                <customControls:NavButton Content="Details" VerticalAlignment="Top" IsEnabled="{Binding OverviewViewActive, Converter={StaticResource InverseBooleanConverter}}"
+                <customControls:NavButton Content="Details" VerticalAlignment="Top" IsEnabled="{Binding CharacterDetailsViewActive, Converter={StaticResource InverseBooleanConverter}}"
                                       Command="{Binding ShowCharacterDetailsCommand}"/>
                 <customControls:NavButton Content="Inventory" VerticalAlignment="Top" IsEnabled="{Binding InventoryViewActive, Converter={StaticResource InverseBooleanConverter}}"
                                       Command="{Binding ShowInventoryCommand}"/>
@@ -60,547 +60,590 @@
         <Grid Grid.Column="1" x:Name="OverviewMainGrid" Background="{DynamicResource CharacterSheetBackgroundColor}" 
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding OverviewViewActive, 
             Converter={StaticResource TrueToVisibleConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*" MaxWidth="400" MinWidth="260"/>
+                <ColumnDefinition Width="1*" MaxWidth="400" MinWidth="260"/>
+                <ColumnDefinition Width="1*" MaxWidth="400" MinWidth="260"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Name="CharacterBanner" HorizontalAlignment="Stretch" Margin="5 3 5 10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="1*" MaxWidth="400" MinWidth="260"/>
-                    <ColumnDefinition Width="1*" MaxWidth="400" MinWidth="260"/>
-                    <ColumnDefinition Width="1*" MaxWidth="400" MinWidth="260"/>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Name="CharacterBanner" HorizontalAlignment="Stretch" Margin="5 3 5 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" CornerRadius="3" VerticalAlignment="Center" Height="Auto">
-                        <StackPanel Margin="10 20 10 20">
-                            <Grid>
-                                <TextBox Text="{Binding ActiveCharacter.Name}" Width="Auto" Height="25" FontSize="{StaticResource LargeFontSize}" 
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" CornerRadius="3" VerticalAlignment="Center" Height="Auto">
+                    <StackPanel Margin="10 20 10 20">
+                        <Grid>
+                            <TextBox Text="{Binding ActiveCharacter.Name}" Width="Auto" Height="25" FontSize="{StaticResource LargeFontSize}" 
                              IsEnabled="{Binding EditModeActive}" Margin="0 2 0 2" Visibility="{Binding EditModeActive, 
                         Converter={StaticResource TrueToVisibleConverter}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-                                <TextBlock Text="{Binding ActiveCharacter.Name}" Width="Auto" Height="25" FontSize="{StaticResource LargeFontSize}" 
+                            <TextBlock Text="{Binding ActiveCharacter.Name}" Width="Auto" Height="25" FontSize="{StaticResource LargeFontSize}" 
                                IsEnabled="{Binding EditModeActive}" Margin="0 2 0 2" Visibility="{Binding EditModeActive, 
                         Converter={StaticResource FalseToVisibleConverter}}" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Label Content="Character Name" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                        </Grid>
+                        <Label Content="Character Name" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" CornerRadius="3">
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                            <TextBlock  Text="{Binding ActiveCharacter.ClassAndLevelString}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                                          Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"/>
+                            <TextBlock Text="{Binding ActiveCharacter.ClassAndLevelString}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
+                                           HorizontalAlignment="Center"/>
+                            <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
+                            <Label Content="Class &amp; Level" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" CornerRadius="3">
-                        <Grid Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*" />
-                                <RowDefinition Height="1*" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
-                                <TextBox  Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                            <TextBlock  Text="{Binding ActiveCharacter.Background.Name}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"/>
-                                <TextBlock Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <TextBlock Text="{Binding ActiveCharacter.Background.Name}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                            Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
                                            HorizontalAlignment="Center"/>
-                                <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
-                                <Label Content="Class &amp; Level" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
-                                <TextBox  Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
+                            <Label Content="Background" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical">
+                            <TextBox  Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"/>
-                                <TextBlock Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <TextBlock Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                            Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
                                            HorizontalAlignment="Center"/>
-                                <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
-                                <Label Content="Background" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical">
-                                <TextBox  Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
+                            <Label Content="Player Name" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                            <TextBlock  Text="{Binding ActiveCharacter.RaceString}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"/>
-                                <TextBlock Text="{Binding ActiveCharacter.Background}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <TextBlock Text="{Binding ActiveCharacter.RaceString}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                            Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
                                            HorizontalAlignment="Center"/>
-                                <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
-                                <Label Content="Player Name" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-                                <TextBox  Text="{Binding ActiveCharacter.Race}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
-                                          Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"/>
-                                <TextBlock Text="{Binding ActiveCharacter.Race}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
-                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
-                                           HorizontalAlignment="Center"/>
-                                <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
-                                <Label Content="Race" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                                <ComboBox ItemsSource="{Binding Source={StaticResource AlignmentCollection}}" SelectedItem="{Binding ActiveCharacter.Alignment, 
+                            <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
+                            <Label Content="Race" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                            <ComboBox ItemsSource="{Binding Source={StaticResource AlignmentCollection}}" SelectedItem="{Binding ActiveCharacter.Alignment, 
                                     Converter={StaticResource EnumToStringConverter}}" Width="Auto" FontSize="{StaticResource NormalFontSize}"
                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"
                                           HorizontalContentAlignment="Center">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Converter={StaticResource EnumToStringConverter}}"/>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <TextBlock Text="{Binding ActiveCharacter.Alignment, Converter={StaticResource EnumToStringConverter}}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource EnumToStringConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Text="{Binding ActiveCharacter.Alignment, Converter={StaticResource EnumToStringConverter}}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                            Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
                                            HorizontalAlignment="Center"/>
-                                <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
-                                <Label Content="Alignment" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
-                                <TextBox  Text="{Binding ActiveCharacter.ExperiencePoints}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
+                            <Label Content="Alignment" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                            <TextBox  Text="{Binding ActiveCharacter.ExperiencePoints}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                           Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}" Height="21"/>
-                                <TextBlock Text="{Binding ActiveCharacter.ExperiencePoints}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
+                            <TextBlock Text="{Binding ActiveCharacter.ExperiencePoints}" Width="Auto" FontSize="{StaticResource NormalFontSize}" 
                                            Margin="0 2 0 2" Visibility="{Binding EditModeActive, Converter={StaticResource FalseToVisibleConverter}}" Height="21"
                                            HorizontalAlignment="Center"/>
-                                <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
-                                <Label Content="Experience Points" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </Grid>
-                <Grid Grid.Row="1" Grid.Column="1" Name="LeftColumnGrid" Margin="5 0 0 2" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*" MinHeight="180" MaxHeight="250"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Column="0" Grid.Row="0" Name="AbilityPanel" VerticalAlignment="Stretch" Width="Auto" MinWidth="100" Margin="0 0 5 0">
-                        <Grid.Resources>
-                            <Style TargetType="customControls:AbilityDisplay">
-                                <Setter Property="Margin" Value="0 2 0 2"/>
-                                <Setter Property="Padding" Value="5 0 5 0"/>
-                            </Style>
-                        </Grid.Resources>
-                        <Border Background="{DynamicResource CharacterSheetSectionBackgroundColor}" CornerRadius="7"/>
-                        <ItemsControl ItemsSource="{Binding ActiveCharacter.Abilities}" VerticalAlignment="Stretch">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="1" VerticalAlignment="Stretch"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <customControls:AbilityDisplay Ability="{Binding Path=.}" EditEnabled="{Binding DataContext.EditModeActive, 
-                                RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            <Line Stretch="Fill" X2="1" StrokeThickness="1" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch"/>
+                            <Label Content="Experience Points" Margin="0" Padding="0" HorizontalAlignment="Center" FontSize="{StaticResource ExtraSmallFontSize}"/>
+                        </StackPanel>
                     </Grid>
-                    <StackPanel Grid.Column="1" Grid.Row="0" Name="SkillPanel" Orientation="Vertical" VerticalAlignment="Stretch" Width="Auto">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <CheckBox IsChecked="{Binding ActiveCharacter.HasInspiration.Value}" HorizontalAlignment="Center" 
-                              VerticalAlignment="Center" Margin="10 0 5 0" FontSize="{StaticResource SmallFontSize}"/>
-                            <Label Content="Inspiration" FontSize="{StaticResource SmallFontSize}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Label Width="Auto">
-                                <Grid>
-                                    <Ellipse Stroke="{DynamicResource CharacterSheetSectionBorderColor}" Fill="Transparent" Height="25" Width="25"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.ProficiencyBonus, StringFormat={}{0:+0;-0}}" 
-                                       HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{StaticResource SmallFontSize}"/>
-                                </Grid>
-                            </Label>
-                            <Label Content="Proficiency Bonus" VerticalAlignment="Center" FontSize="{StaticResource SmallFontSize}"/>
-                        </StackPanel>
-                        <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 2 0 2" Padding="0 5 0 1" CornerRadius="2">
-                            <DockPanel HorizontalAlignment="Center">
-                                <Label DockPanel.Dock="Bottom" Content="Saving Throws" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                <ItemsControl ItemsSource="{Binding ActiveCharacter.SavingThrows}" ItemTemplate="{StaticResource SavingThrowDisplay}" />
-                            </DockPanel>
-                        </Border>
-                        <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 2 0 2" Padding="0 5 2 1" CornerRadius="2">
-                            <DockPanel HorizontalAlignment="Center">
-                                <Label DockPanel.Dock="Bottom" Content="Skills" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                <ItemsControl ItemsSource="{Binding ActiveCharacter.Skills}" ItemTemplate="{StaticResource SkillDisplay}"/>
-                            </DockPanel>
-                        </Border>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" Name="LeftColumnGrid" Margin="5 0 0 2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*" MinHeight="180" MaxHeight="250"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0" Name="AbilityPanel" VerticalAlignment="Stretch" Width="Auto" MinWidth="100" Margin="0 0 5 0">
+                    <Grid.Resources>
+                        <Style TargetType="customControls:AbilityDisplay">
+                            <Setter Property="Margin" Value="0 2 0 2"/>
+                            <Setter Property="Padding" Value="5 0 5 0"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Border Background="{DynamicResource CharacterSheetSectionBackgroundColor}" CornerRadius="7"/>
+                    <ItemsControl ItemsSource="{Binding ActiveCharacter.Abilities}" VerticalAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="1" VerticalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <customControls:AbilityDisplay Ability="{Binding Path=.}" EditEnabled="{Binding DataContext.EditModeActive, 
+                                RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+                <StackPanel Grid.Column="1" Grid.Row="0" Name="SkillPanel" Orientation="Vertical" VerticalAlignment="Stretch" Width="Auto">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <CheckBox IsChecked="{Binding ActiveCharacter.HasInspiration.Value}" HorizontalAlignment="Center" 
+                              VerticalAlignment="Center" Margin="10 0 5 0" FontSize="{StaticResource SmallFontSize}" Content="Inspiration"/>
                     </StackPanel>
-                    <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 5 0 8" CornerRadius="4">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Label Width="Auto" Margin="10 0 20 0" Padding="0 2 0 2">
-                                <Grid>
-                                    <Ellipse Stroke="{DynamicResource CharacterSheetSectionBorderColor}" Fill="Transparent" Height="30" Width="30"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.PassivePerception}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Label>
-                            <Label Content="Passive Wisdom (Perception)" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </Border>
-                    <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}"
-                            CornerRadius="2" VerticalAlignment="Stretch">
-                        <DockPanel VerticalAlignment="Stretch">
-                            <Label DockPanel.Dock="Bottom" Content="Other Proficiencies and Languages" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                        <Label DockPanel.Dock="Top">
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{Binding ActiveCharacter.LanguagesString}" TextWrapping="Wrap"/>
-                            </Label>
-                            <Canvas>
-                                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
-                                    Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
-                                    Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                    <ItemsControl ItemsSource="{Binding ActiveCharacter.OtherProficiencies}" Padding="5 0 5 0" />
-                                </ScrollViewer>
-                            </Canvas>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Width="Auto">
+                            <Grid>
+                                <Ellipse Stroke="{DynamicResource CharacterSheetSectionBorderColor}" Fill="Transparent" Height="25" Width="25"/>
+                                <TextBlock Text="{Binding ActiveCharacter.ProficiencyBonus, StringFormat={}{0:+0;-0}}" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{StaticResource SmallFontSize}"/>
+                            </Grid>
+                        </Label>
+                        <Label Content="Proficiency Bonus" VerticalAlignment="Center" FontSize="{StaticResource SmallFontSize}"/>
+                    </StackPanel>
+                    <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 2 0 2" Padding="0 5 0 1" CornerRadius="2">
+                        <DockPanel HorizontalAlignment="Center">
+                            <Label DockPanel.Dock="Bottom" Content="Saving Throws" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                            <ItemsControl ItemsSource="{Binding ActiveCharacter.SavingThrows}" ItemTemplate="{StaticResource SavingThrowDisplay}" />
                         </DockPanel>
                     </Border>
-                </Grid>
-                <Grid Grid.Row="1" Grid.Column="2" Name="CenterColumnGrid" Margin="5 0 5 0" VerticalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" MinHeight="258" MaxHeight="350"/>
-                        <RowDefinition Height="*" MinHeight="222" MaxHeight="450" />
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0" Background="{DynamicResource CharacterSheetSectionBackgroundColor}" CornerRadius="7" Margin="0 0 0 5">
-                        <StackPanel Orientation="Vertical">
-                            <UniformGrid Columns="3" Margin="0 5 0 2">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Ellipse Grid.RowSpan="2" Height="50" Width="50" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" 
+                    <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 2 0 2" Padding="0 5 2 1" CornerRadius="2">
+                        <DockPanel HorizontalAlignment="Center">
+                            <Label DockPanel.Dock="Bottom" Content="Skills" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                            <ItemsControl ItemsSource="{Binding ActiveCharacter.Skills}" ItemTemplate="{StaticResource SkillDisplay}"/>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+                <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 5 0 8" CornerRadius="4">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Width="Auto" Margin="10 0 20 0" Padding="0 2 0 2">
+                            <Grid>
+                                <Ellipse Stroke="{DynamicResource CharacterSheetSectionBorderColor}" Fill="Transparent" Height="30" Width="30"/>
+                                <TextBlock Text="{Binding ActiveCharacter.PassivePerception}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Label>
+                        <Label Content="Passive Wisdom (Perception)" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}"
+                            CornerRadius="2" VerticalAlignment="Stretch">
+                    <DockPanel VerticalAlignment="Stretch">
+                        <Label DockPanel.Dock="Bottom" Content="Other Proficiencies and Languages" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                        <Label DockPanel.Dock="Top">
+                            <Grid>
+                                <Button Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}"
+                                                Command="{Binding ShowTextListEditPopupCommand}" CommandParameter="{Binding ActiveCharacter.Languages}"
+                                                Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{StaticResource EditOverlayButton}"/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{Binding ActiveCharacter.LanguagesString}" TextWrapping="Wrap"/>
+                            </Grid>
+                        </Label>
+                        <Canvas>
+                            <Button Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}"
+                                                Command="{Binding ShowTextListEditPopupCommand}" CommandParameter="{Binding ActiveCharacter.OtherProficiencies}"
+                                                Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{StaticResource EditOverlayButton}"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                    Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                    Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                <ItemsControl ItemsSource="{Binding ActiveCharacter.OtherProficiencies}" Padding="5 0 5 0" />
+                            </ScrollViewer>
+                        </Canvas>
+                    </DockPanel>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="2" Name="CenterColumnGrid" Margin="5 0 5 0" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" MinHeight="258" MaxHeight="350"/>
+                    <RowDefinition Height="*" MinHeight="222" MaxHeight="450" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="{DynamicResource CharacterSheetSectionBackgroundColor}" CornerRadius="7" Margin="0 0 0 5">
+                    <StackPanel Orientation="Vertical">
+                        <UniformGrid Columns="3" Margin="0 5 0 2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Ellipse Grid.RowSpan="2" Height="50" Width="50" Stroke="{DynamicResource CharacterSheetSectionBorderColor}" 
                                          StrokeThickness="1" Fill="{DynamicResource CharacterSheetBackgroundColor}"/>
-                                    <TextBlock Grid.Row="0" Text="{Binding ActiveCharacter.ArmorClass}" FontSize="{StaticResource LargeFontSize}" 
+                                <TextBlock Grid.Row="0" Text="{Binding ActiveCharacter.ArmorClass}" FontSize="{StaticResource LargeFontSize}" 
                                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-                                    <TextBlock Grid.Row="1" Text="Armor Class" TextWrapping="Wrap" FontSize="{StaticResource SmallFontSize}" 
+                                <TextBlock Grid.Row="1" Text="Armor Class" TextWrapping="Wrap" FontSize="{StaticResource SmallFontSize}" 
                                            HorizontalAlignment="Center" TextAlignment="Center" Width="50" LineHeight="10" 
                                            LineStackingStrategy="BlockLineHeight" Padding="0 0 0 2"/>
-                                </Grid>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Rectangle Grid.RowSpan="2" Height="50" Width="50" RadiusX="10" RadiusY="10" 
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Rectangle Grid.RowSpan="2" Height="50" Width="50" RadiusX="10" RadiusY="10" 
                                            Stroke="{DynamicResource CharacterSheetSectionBorderColor}" StrokeThickness="1"
                                            Fill="{DynamicResource CharacterSheetBackgroundColor}"/>
-                                    <TextBlock Grid.Row="0" Text="{Binding ActiveCharacter.Initiative, StringFormat={}{0:+0;-0}}" 
+                                <TextBlock Grid.Row="0" Text="{Binding ActiveCharacter.Initiative, StringFormat={}{0:+0;-0}}" 
                                            FontSize="{StaticResource LargeFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                            TextAlignment="Center"/>
-                                    <TextBlock Grid.Row="1" Text="Initiative" FontSize="{StaticResource SmallFontSize}" 
+                                <TextBlock Grid.Row="1" Text="Initiative" FontSize="{StaticResource SmallFontSize}" 
                                            HorizontalAlignment="Center" TextAlignment="Center" Width="50" Padding="0 0 0 2"/>
-                                </Grid>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Rectangle Grid.RowSpan="2" Height="50" Width="50" RadiusX="10" RadiusY="10" Stroke="{StaticResource 
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Rectangle Grid.RowSpan="2" Height="50" Width="50" RadiusX="10" RadiusY="10" Stroke="{StaticResource 
                                     CharacterSheetSectionBorderColor}" StrokeThickness="1"
                                            Fill="{DynamicResource CharacterSheetBackgroundColor}"/>
-                                    <TextBlock Grid.Row="0" Text="{Binding ActiveCharacter.Speed}" FontSize="{StaticResource LargeFontSize}" 
+                                <TextBlock Grid.Row="0" Text="{Binding ActiveCharacter.Speed}" FontSize="{StaticResource LargeFontSize}" 
                                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-                                    <TextBlock Grid.Row="1" Text="Speed" FontSize="{StaticResource SmallFontSize}" HorizontalAlignment="Center" 
+                                <TextBlock Grid.Row="1" Text="Speed" FontSize="{StaticResource SmallFontSize}" HorizontalAlignment="Center" 
                                            TextAlignment="Center" Width="50" Padding="0 0 0 2"/>
+                            </Grid>
+                        </UniformGrid>
+                        <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}"  Margin="5 2 5 2" CornerRadius="3">
+                            <DockPanel Background="{DynamicResource CharacterSheetBackgroundColor}">
+                                <Grid DockPanel.Dock="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="Hit Point Maximum" FontSize="{StaticResource ExtraSmallFontSize}" 
+                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ActiveCharacter.MaxHitPoints}" FontSize="{StaticResource 
+                                        NormalFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Grid>
-                            </UniformGrid>
-                            <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}"  Margin="5 2 5 2" CornerRadius="3">
-                                <DockPanel Background="{DynamicResource CharacterSheetBackgroundColor}">
+                                <Label DockPanel.Dock="Bottom" Content="Current Hit Points" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                                <TextBlock Text="{Binding ActiveCharacter.CurrentHitPoints}" HorizontalAlignment="Center" TextAlignment="Center" 
+                                           FontSize="{StaticResource LargeFontSize}"/>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}"  Margin="5 2 5 5" CornerRadius="3">
+                            <DockPanel Background="{DynamicResource CharacterSheetBackgroundColor}">
+                                <Label DockPanel.Dock="Bottom" Content="Temporary Hit Points" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                                <TextBlock Text="{Binding ActiveCharacter.TemporaryHitPoints}" HorizontalAlignment="Center" TextAlignment="Center" 
+                                           FontSize="{StaticResource LargeFontSize}"/>
+                            </DockPanel>
+                        </Border>
+                        <UniformGrid Columns="2" Margin="5 2 5 5">
+                            <Grid Margin="0 0 5 0">
+                                <Rectangle Grid.RowSpan="2" Height="Auto" Width="Auto" RadiusX="10" RadiusY="10" Stroke="{StaticResource 
+                                    CharacterSheetSectionBorderColor}" StrokeThickness="1" Fill="{DynamicResource CharacterSheetBackgroundColor}"/>
+                                <DockPanel>
                                     <Grid DockPanel.Dock="Top">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5*" />
-                                            <ColumnDefinition Width="5*" />
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="8*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Hit Point Maximum" FontSize="{StaticResource ExtraSmallFontSize}" 
+                                        <Label Grid.Column="0" Content="Total" FontSize="{StaticResource ExtraSmallFontSize}" 
                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding ActiveCharacter.MaxHitPoints}" FontSize="{StaticResource 
-                                        NormalFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                    <Label DockPanel.Dock="Bottom" Content="Current Hit Points" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.CurrentHitPoints}" HorizontalAlignment="Center" TextAlignment="Center" 
-                                           FontSize="{StaticResource LargeFontSize}"/>
-                                </DockPanel>
-                            </Border>
-                            <Border BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}"  Margin="5 2 5 5" CornerRadius="3">
-                                <DockPanel Background="{DynamicResource CharacterSheetBackgroundColor}">
-                                    <Label DockPanel.Dock="Bottom" Content="Temporary Hit Points" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.TemporaryHitPoints}" HorizontalAlignment="Center" TextAlignment="Center" 
-                                           FontSize="{StaticResource LargeFontSize}"/>
-                                </DockPanel>
-                            </Border>
-                            <UniformGrid Columns="2" Margin="5 2 5 5">
-                                <Grid Margin="0 0 5 0">
-                                    <Rectangle Grid.RowSpan="2" Height="Auto" Width="Auto" RadiusX="10" RadiusY="10" Stroke="{StaticResource 
-                                    CharacterSheetSectionBorderColor}" StrokeThickness="1" Fill="{DynamicResource CharacterSheetBackgroundColor}"/>
-                                    <DockPanel>
-                                        <Grid DockPanel.Dock="Top">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*" />
-                                                <ColumnDefinition Width="8*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Label Grid.Column="0" Content="Total" FontSize="{StaticResource ExtraSmallFontSize}" 
-                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="1" Text="Replace Me" FontSize="{StaticResource 
+                                        <TextBlock Grid.Column="1" Text="Replace Me" FontSize="{StaticResource 
                                         ExtraSmallFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        </Grid>
-                                        <Label DockPanel.Dock="Bottom" Content="Hit Dice" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                        <TextBlock Text="Replace Me" HorizontalAlignment="Center"/>
-                                    </DockPanel>
-                                </Grid>
-                                <Grid Margin="5 0 0 0">
-                                    <Rectangle Grid.RowSpan="2" Height="Auto" Width="Auto" RadiusX="10" RadiusY="10" Stroke="{StaticResource 
+                                    </Grid>
+                                    <Label DockPanel.Dock="Bottom" Content="Hit Dice" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                                    <TextBlock Text="Replace Me" HorizontalAlignment="Center"/>
+                                </DockPanel>
+                            </Grid>
+                            <Grid Margin="5 0 0 0">
+                                <Rectangle Grid.RowSpan="2" Height="Auto" Width="Auto" RadiusX="10" RadiusY="10" Stroke="{StaticResource 
                                     CharacterSheetSectionBorderColor}" StrokeThickness="1" Fill="{DynamicResource CharacterSheetBackgroundColor}"/>
-                                    <DockPanel>
-                                        <Label DockPanel.Dock="Bottom" Content="Death Saves" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
-                                                <Label Content="Successes" FontSize="{StaticResource SmallFontSize}" Padding="5 2 5 5"/>
-                                                <Grid VerticalAlignment="Center">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="1*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="1*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="1*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Ellipse Grid.Column="0" Height="10" Width="10" StrokeThickness="1" 
+                                <DockPanel>
+                                    <Label DockPanel.Dock="Bottom" Content="Death Saves" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
+                                            <Label Content="Successes" FontSize="{StaticResource SmallFontSize}" Padding="5 2 5 5"/>
+                                            <Grid VerticalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Ellipse Grid.Column="0" Height="10" Width="10" StrokeThickness="1" 
                                                          Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"/>
-                                                    <Line Grid.Column="1" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
+                                                <Line Grid.Column="1" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
                                                       Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch" Margin="-1 0 -1 0"/>
-                                                    <Ellipse Grid.Column="2" Height="10" Width="10" StrokeThickness="1" 
+                                                <Ellipse Grid.Column="2" Height="10" Width="10" StrokeThickness="1" 
                                                          Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"/>
-                                                    <Line Grid.Column="3" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
+                                                <Line Grid.Column="3" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
                                                       Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch" Margin="-1 0 -1 0"/>
-                                                    <Ellipse Grid.Column="4" Height="10" Width="10" StrokeThickness="1" 
+                                                <Ellipse Grid.Column="4" Height="10" Width="10" StrokeThickness="1" 
                                                          Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </StackPanel>
-                                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 10 0">
-                                                <Label Content="Failures" FontSize="{StaticResource SmallFontSize}" Padding="5 2 5 5"/>
-                                                <Grid VerticalAlignment="Center">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="1*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="1*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="1*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Ellipse Grid.Column="0" Height="10" Width="10" StrokeThickness="1" 
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 10 0">
+                                            <Label Content="Failures" FontSize="{StaticResource SmallFontSize}" Padding="5 2 5 5"/>
+                                            <Grid VerticalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Ellipse Grid.Column="0" Height="10" Width="10" StrokeThickness="1" 
                                                          Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"/>
-                                                    <Line Grid.Column="1" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
+                                                <Line Grid.Column="1" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
                                                       Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch" Margin="-1 0 -1 0"/>
-                                                    <Ellipse Grid.Column="2" Height="10" Width="10" StrokeThickness="1" 
+                                                <Ellipse Grid.Column="2" Height="10" Width="10" StrokeThickness="1" 
                                                          Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"/>
-                                                    <Line Grid.Column="3" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
+                                                <Line Grid.Column="3" Stretch="Fill" Width="6" X2="1" StrokeThickness="2" 
                                                       Stroke="{DynamicResource CharacterSheetSectionBorderColor}" HorizontalAlignment="Stretch" Margin="-1 0 -1 0"/>
-                                                    <Ellipse Grid.Column="4" Height="10" Width="10" StrokeThickness="1" 
+                                                <Ellipse Grid.Column="4" Height="10" Width="10" StrokeThickness="1" 
                                                          Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </StackPanel>
-                                        </Grid>
-                                    </DockPanel>
-                                </Grid>
-                            </UniformGrid>
-                        </StackPanel>
-                    </Border>
-                    <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 0 0 8" CornerRadius="3">
-                        <DockPanel VerticalAlignment="Stretch" Margin="5">
-                            <Label DockPanel.Dock="Bottom" Content="Attacks &amp; Spellcasting" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="42*" />
-                                    <ColumnDefinition Width="25*" />
-                                    <ColumnDefinition Width="42*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Content="Name" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Left"/>
-                                <Label Grid.Column="1" Grid.Row="0" Content="Atk Bonus" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Left"/>
-                                <Label Grid.Column="2" Grid.Row="0" Content="Damage/Type" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Left"/>
-                                <Grid Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
-                                    <ItemsControl Grid.ColumnSpan="3" HorizontalAlignment="Center" ItemsSource="{Binding ActiveCharacter.EquippedWeapons}"/>
-                                    <Canvas>
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                            </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </DockPanel>
+                            </Grid>
+                        </UniformGrid>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="0 0 0 8" CornerRadius="3">
+                    <DockPanel VerticalAlignment="Stretch" Margin="5">
+                        <Label DockPanel.Dock="Bottom" Content="Attacks &amp; Spellcasting" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="42*" />
+                                <ColumnDefinition Width="25*" />
+                                <ColumnDefinition Width="42*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="Name" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Left"/>
+                            <Label Grid.Column="1" Grid.Row="0" Content="Atk Bonus" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Left"/>
+                            <Label Grid.Column="2" Grid.Row="0" Content="Damage/Type" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Left"/>
+                            <Grid Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
+                                <ItemsControl Grid.ColumnSpan="3" HorizontalAlignment="Center" ItemsSource="{Binding ActiveCharacter.EquippedWeapons}"/>
+                                <Canvas>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
                                     Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
                                     Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                            <ItemsControl>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                                <system:String>Test item</system:String>
-                                            </ItemsControl>
+                                        <ItemsControl>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                            <system:String>Test item</system:String>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Canvas>
+                            </Grid>
+                        </Grid>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Row="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" CornerRadius="3" VerticalAlignment="Stretch" Margin="0 0 0 2">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Bottom" Content="Equipment" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
+                        <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                            <Grid>
+                                <Rectangle Height="30" Width="50" StrokeThickness="1" 
+                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
+                                           RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="{Binding ActiveCharacter.CopperPieces, StringFormat={}{0} cp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Height="30" Width="50" StrokeThickness="1" 
+                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
+                                           RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="{Binding ActiveCharacter.SilverPieces, StringFormat={}{0} sp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Height="30" Width="50" StrokeThickness="1" 
+                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
+                                           RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="{Binding ActiveCharacter.ElectrumPieces, StringFormat={}{0} ep}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Height="30" Width="50" StrokeThickness="1" 
+                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
+                                           RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="{Binding ActiveCharacter.GoldPieces, StringFormat={}{0} gp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Height="30" Width="50" StrokeThickness="1" 
+                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
+                                           RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="{Binding ActiveCharacter.PlatinumPieces, StringFormat={}{0} pp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <Canvas>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                    Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                    Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                <ItemsControl>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                    <system:String>Test item</system:String>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Canvas>
+                    </DockPanel>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="3" Name="RightColumnGrid" Margin="0 0 5 0">
+                <Grid VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" MinHeight="360" />
+                        <RowDefinition Height="3*" MinHeight="376" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{DynamicResource CharacterSheetSectionBackgroundColor}" 
+                                CornerRadius="7" Margin="5 0 0 0" Padding="0 5 0 5" Height="Auto">
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" MinHeight="85" />
+                                <RowDefinition Height="1*" MinHeight="85" />
+                                <RowDefinition Height="1*" MinHeight="85" />
+                                <RowDefinition Height="1*" MinHeight="85" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
+                                        Margin="5 2 5 2" CornerRadius="3">
+                                <DockPanel VerticalAlignment="Stretch">
+                                    <Label DockPanel.Dock="Bottom" Content="Personality Traits" FontSize="{StaticResource 
+                                            ExtraSmallFontSize}" HorizontalAlignment="Center" 
+                                           FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
+                                    <Canvas>
+                                        <Button Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}"
+                                                Command="{Binding ShowTextListEditPopupCommand}" CommandParameter="{Binding ActiveCharacter.PersonalityTraits}"
+                                                Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{StaticResource EditOverlayButton}">
+                                        </Button>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                            <ItemsControl ItemsSource="{Binding ActiveCharacter.PersonalityTraits}" 
+                                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                                         </ScrollViewer>
                                     </Canvas>
-                                </Grid>
-                            </Grid>
-                        </DockPanel>
+                                </DockPanel>
+                            </Border>
+                            <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
+                                        Margin="5 2 5 2" CornerRadius="3">
+                                <DockPanel>
+                                    <Label DockPanel.Dock="Bottom" Content="Ideals" FontSize="{StaticResource ExtraSmallFontSize}"
+                                               HorizontalAlignment="Center" 
+                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
+                                    <Canvas>
+                                        <Button Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}"
+                                                Command="{Binding ShowTextListEditPopupCommand}" CommandParameter="{Binding ActiveCharacter.Ideals}"
+                                                Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{StaticResource EditOverlayButton}"/>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                            <ItemsControl ItemsSource="{Binding ActiveCharacter.Ideals}"
+                                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </ScrollViewer>
+                                    </Canvas>
+                                </DockPanel>
+                            </Border>
+                            <Border Grid.Row="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
+                                        Margin="5 2 5 2" CornerRadius="3">
+                                <DockPanel>
+                                    <Label DockPanel.Dock="Bottom" Content="Bonds" FontSize="{StaticResource ExtraSmallFontSize}" 
+                                               HorizontalAlignment="Center" 
+                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
+                                    <Canvas>
+                                        <Button Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}"
+                                                Command="{Binding ShowTextListEditPopupCommand}" CommandParameter="{Binding ActiveCharacter.Bonds}"
+                                                Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{StaticResource EditOverlayButton}"/>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                            <ItemsControl ItemsSource="{Binding ActiveCharacter.Bonds}"
+                                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </ScrollViewer>
+                                    </Canvas>
+                                </DockPanel>
+                            </Border>
+                            <Border Grid.Row="3" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="5 2 5 2" CornerRadius="3">
+                                <DockPanel>
+                                    <Label DockPanel.Dock="Bottom" Content="Flaws" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Center" 
+                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
+                                    <Canvas>
+                                        <Button Visibility="{Binding EditModeActive, Converter={StaticResource TrueToVisibleConverter}}"
+                                                Command="{Binding ShowTextListEditPopupCommand}" CommandParameter="{Binding ActiveCharacter.Flaws}"
+                                                Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Style="{StaticResource EditOverlayButton}"/>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                            <ItemsControl ItemsSource="{Binding ActiveCharacter.Flaws}"
+                                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </ScrollViewer>
+                                    </Canvas>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
                     </Border>
-                    <Border Grid.Row="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" CornerRadius="3" VerticalAlignment="Stretch" Margin="0 0 0 2">
-                        <DockPanel>
-                            <Label DockPanel.Dock="Bottom" Content="Equipment" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                            <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
-                                <Grid>
-                                    <Rectangle Height="30" Width="50" StrokeThickness="1" 
-                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
-                                           RadiusX="10" RadiusY="10"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.CopperPieces, StringFormat={}{0} cp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                                <Grid>
-                                    <Rectangle Height="30" Width="50" StrokeThickness="1" 
-                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
-                                           RadiusX="10" RadiusY="10"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.SilverPieces, StringFormat={}{0} sp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                                <Grid>
-                                    <Rectangle Height="30" Width="50" StrokeThickness="1" 
-                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
-                                           RadiusX="10" RadiusY="10"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.ElectrumPieces, StringFormat={}{0} ep}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                                <Grid>
-                                    <Rectangle Height="30" Width="50" StrokeThickness="1" 
-                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
-                                           RadiusX="10" RadiusY="10"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.GoldPieces, StringFormat={}{0} gp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                                <Grid>
-                                    <Rectangle Height="30" Width="50" StrokeThickness="1" 
-                                    Stroke="{DynamicResource CharacterSheetSectionBorderColor}" VerticalAlignment="Center"
-                                           RadiusX="10" RadiusY="10"/>
-                                    <TextBlock Text="{Binding ActiveCharacter.PlatinumPieces, StringFormat={}{0} pp}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                            </StackPanel>
+                    <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
+                                Margin="5 5 0 2" CornerRadius="3" VerticalAlignment="Stretch">
+                        <DockPanel VerticalAlignment="Stretch">
+                            <Label DockPanel.Dock="Bottom" Content="Features &amp; Traits" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
                             <Canvas>
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
-                                    Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
-                                    Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                    <ItemsControl>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                        <system:String>Test item</system:String>
-                                    </ItemsControl>
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
+                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                    <ItemsControl ItemsSource="{Binding ActiveCharacter.Features}" DisplayMemberPath="Value"
+                                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                                 </ScrollViewer>
                             </Canvas>
                         </DockPanel>
                     </Border>
-                </Grid>
-                <Grid Grid.Row="1" Grid.Column="3" Name="RightColumnGrid" Margin="0 0 5 0">
-                    <Grid VerticalAlignment="Stretch">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" MinHeight="250" />
-                            <RowDefinition Height="3*" MinHeight="487" />
-                        </Grid.RowDefinitions>
-                        <Border Grid.Row="0" Background="{DynamicResource CharacterSheetSectionBackgroundColor}" 
-                                CornerRadius="7" Margin="5 0 0 0" Padding="0 5 0 5" Height="Auto">
-                            <Grid VerticalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*" />
-                                    <RowDefinition Height="1*" />
-                                    <RowDefinition Height="1*" />
-                                    <RowDefinition Height="1*" />
-                                </Grid.RowDefinitions>
-                                <Border Grid.Row="0" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
-                                        Margin="5 2 5 2" CornerRadius="3">
-                                    <DockPanel VerticalAlignment="Stretch">
-                                        <Label DockPanel.Dock="Bottom" Content="Personality Traits" FontSize="{StaticResource 
-                                            ExtraSmallFontSize}" HorizontalAlignment="Center" 
-                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
-                                        <Canvas>
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                                <ItemsControl ItemsSource="{Binding ActiveCharacter.PersonalityTraits}" />
-                                            </ScrollViewer>
-                                        </Canvas>
-                                    </DockPanel>
-                                </Border>
-                                <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
-                                        Margin="5 2 5 2" CornerRadius="3">
-                                    <DockPanel>
-                                        <Label DockPanel.Dock="Bottom" Content="Ideals" FontSize="{StaticResource ExtraSmallFontSize}"
-                                               HorizontalAlignment="Center" 
-                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
-                                        <Canvas>
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                                <ItemsControl ItemsSource="{Binding ActiveCharacter.Ideals}" />
-                                            </ScrollViewer>
-                                        </Canvas>
-                                    </DockPanel>
-                                </Border>
-                                <Border Grid.Row="2" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
-                                        Margin="5 2 5 2" CornerRadius="3">
-                                    <DockPanel>
-                                        <Label DockPanel.Dock="Bottom" Content="Bonds" FontSize="{StaticResource ExtraSmallFontSize}" 
-                                               HorizontalAlignment="Center" 
-                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
-                                        <Canvas>
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                                <ItemsControl ItemsSource="{Binding ActiveCharacter.Bonds}" />
-                                            </ScrollViewer>
-                                            </Canvas>
-                                    </DockPanel>
-                                </Border>
-                                <Border Grid.Row="3" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" Margin="5 2 5 2" CornerRadius="3">
-                                    <DockPanel>
-                                        <Label DockPanel.Dock="Bottom" Content="Flaws" FontSize="{StaticResource ExtraSmallFontSize}" HorizontalAlignment="Center" 
-                               FontWeight="Regular" Margin="0 3 0 1" Padding="0"/>
-                                        <ItemsControl ItemsSource="{Binding ActiveCharacter.PersonalityTraits}" VerticalAlignment="Stretch" MinHeight="35"/>
-                                    </DockPanel>
-                                </Border>
-                            </Grid>
-                        </Border>
-                        <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource CharacterSheetSectionBorderColor}" 
-                                Margin="5 5 0 2" CornerRadius="3" VerticalAlignment="Stretch">
-                            <DockPanel VerticalAlignment="Stretch">
-                                <Label DockPanel.Dock="Bottom" Content="Features &amp; Traits" Style="{StaticResource CharacterSheetSectionLabelStyle}"/>
-                                <Canvas>
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="{Binding Parent.ActualHeight, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}" Width="{Binding Parent.ActualWidth, 
-                                                Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                        <ItemsControl ItemsSource="{Binding ActiveCharacter.Features}" DisplayMemberPath="Value" />
-                                    </ScrollViewer>
-                                </Canvas>
-                            </DockPanel>
-                        </Border>
-                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
+    </Grid>
     <!--</ScrollViewer>-->
 </UserControl>

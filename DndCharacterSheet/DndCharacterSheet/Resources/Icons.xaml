@@ -8,4 +8,60 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="ic_settings_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M19.43,12.98C19.47,12.66 19.5,12.34 19.5,12 19.5,11.66 19.47,11.34 19.43,11.02L21.54,9.37C21.73,9.22,21.78,8.95,21.66,8.73L19.66,5.27C19.54,5.05,19.27,4.97,19.05,5.05L16.56,6.05C16.04,5.65,15.48,5.32,14.87,5.07L14.49,2.42C14.46,2.18,14.25,2,14,2L10,2C9.75,2,9.54,2.18,9.51,2.42L9.13,5.07C8.52,5.32,7.96,5.66,7.44,6.05L4.95,5.05C4.72,4.96,4.46,5.05,4.34,5.27L2.34,8.73C2.21,8.95,2.27,9.22,2.46,9.37L4.57,11.02C4.53,11.34 4.5,11.67 4.5,12 4.5,12.33 4.53,12.66 4.57,12.98L2.46,14.63C2.27,14.78,2.22,15.05,2.34,15.27L4.34,18.73C4.46,18.95,4.73,19.03,4.95,18.95L7.44,17.95C7.96,18.35,8.52,18.68,9.13,18.93L9.51,21.58C9.54,21.82,9.75,22,10,22L14,22C14.25,22,14.46,21.82,14.49,21.58L14.87,18.93C15.48,18.68,16.04,18.34,16.56,17.95L19.05,18.95C19.28,19.04,19.54,18.95,19.66,18.73L21.66,15.27C21.78,15.05,21.73,14.78,21.54,14.63L19.43,12.98z M12,15.5C10.07,15.5 8.5,13.93 8.5,12 8.5,10.07 10.07,8.5 12,8.5 13.93,8.5 15.5,10.07 15.5,12 15.5,13.93 13.93,15.5 12,15.5z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_create_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M3,17.25L3,21 6.75,21 17.81,9.94 14.06,6.19 3,17.25z M20.71,7.04C21.1,6.65,21.1,6.02,20.71,5.63L18.37,3.29C17.98,2.9,17.35,2.9,16.96,3.29L15.13,5.12 18.88,8.87 20.71,7.04z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_clear_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_remove_48pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V48 H48 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M48,48z M0,0z M38,26L10,26 10,22 38,22 38,26z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_delete_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M6,19C6,20.1,6.9,21,8,21L16,21C17.1,21,18,20.1,18,19L18,7 6,7 6,19z M19,4L15.5,4 14.5,3 9.5,3 8.5,4 5,4 5,6 19,6 19,4z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_face_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M9,11.75C8.31,11.75 7.75,12.31 7.75,13 7.75,13.69 8.31,14.25 9,14.25 9.69,14.25 10.25,13.69 10.25,13 10.25,12.31 9.69,11.75 9,11.75z M15,11.75C14.31,11.75 13.75,12.31 13.75,13 13.75,13.69 14.31,14.25 15,14.25 15.69,14.25 16.25,13.69 16.25,13 16.25,12.31 15.69,11.75 15,11.75z M12,2C6.48,2 2,6.48 2,12 2,17.52 6.48,22 12,22 17.52,22 22,17.52 22,12 22,6.48 17.52,2 12,2z M12,20C7.59,20 4,16.41 4,12 4,11.71 4.02,11.42 4.05,11.14 6.41,10.09 8.28,8.16 9.26,5.77 11.07,8.33 14.05,10 17.42,10 18.2,10 18.95,9.91 19.67,9.74 19.88,10.45 20,11.21 20,12 20,16.41 16.41,20 12,20z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_help_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M12,2C6.48,2 2,6.48 2,12 2,17.52 6.48,22 12,22 17.52,22 22,17.52 22,12 22,6.48 17.52,2 12,2z M13,19L11,19 11,17 13,17 13,19z M15.07,11.25L14.17,12.17C13.45,12.9,13,13.5,13,15L11,15 11,14.5C11,13.4,11.45,12.4,12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9 14,7.9 13.1,7 12,7 10.9,7 10,7.9 10,9L8,9C8,6.79 9.79,5 12,5 14.21,5 16,6.79 16,9 16,9.88 15.64,10.68 15.07,11.25z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ic_done_24pxDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M24,24z M0,0z M9,16.2L4.8,12 3.4,13.4 9,19 21,7 19.6,5.6 9,16.2z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 </ResourceDictionary>

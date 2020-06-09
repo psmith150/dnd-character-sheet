@@ -16,12 +16,14 @@ namespace DndCharacterSheet.ViewModels
 
             // Set commands
             this.ToggleMenuCommand = new RelayCommand(() => this.SetMenuVisibility(!this.MenuVisible));
+            this.NavigateToScreenCommand = new RelayCommand<Type>((viewModel) => this.NavigateToScreen(viewModel));
 
             // Set the starting page
             this.NavigationService.NavigateTo<CharacterScreenViewModel>();
         }
         #region Commands
         public ICommand ToggleMenuCommand { get; private set; }
+        public ICommand NavigateToScreenCommand { get; private set; }
         #endregion
 
         #region Public Properties
@@ -55,6 +57,14 @@ namespace DndCharacterSheet.ViewModels
         private void SetMenuVisibility(bool show)
         {
             this.MenuVisible = show;
+        }
+        private void NavigateToScreen(object param)
+        {
+            var viewModelType = param as Type;
+            if (viewModelType != null)
+            {
+                this.NavigationService.NavigateTo(viewModelType);
+            }
         }
         #endregion
     }

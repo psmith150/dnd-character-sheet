@@ -113,6 +113,16 @@ namespace DndCharacterSheet.Models.Enums
         Metric
     };
 
+    public enum Size
+    {
+        Small,
+        Medium,
+        Large,
+        Giant,
+        Huge,
+        Gargantuan
+    };
+
     public static class EnumExtensions
     {
         public static string GetDescription(this Enum value)

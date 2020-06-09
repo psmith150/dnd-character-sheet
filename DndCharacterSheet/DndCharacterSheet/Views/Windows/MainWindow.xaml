@@ -9,7 +9,7 @@
         xmlns:customControls="clr-namespace:DndCharacterSheet.Views.CustomControls"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vms:MainWindowViewModel}"
-        Title="MainWindow" Height="700" Width="1280"
+        Title="MainWindow" Height="875" Width="960"
         Style="{StaticResource MainWindowStyle}">
     <Window.Resources>
         <valueConverters:ViewModelToViewConverter x:Key="ViewModelToViewConverter" />
@@ -58,24 +58,27 @@
                         </Style>
                     </UniformGrid.Style>
                     <UniformGrid.Resources>
-                        <Style TargetType="customControls:NavButton" BasedOn="{StaticResource CharacterSheetNavButton}">
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Background" Value="{DynamicResource MainNavigationButtonBackgroundColor}"/>
-                            <Setter Property="BorderBrush" Value="{DynamicResource MainNavigationButtonBorderColor}"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
-                            <Setter Property="HoverBackgroundBrush" Value="{DynamicResource MainNavigationButtonBackgroundColor}"/>
-                            <Setter Property="HoverForegroundBrush" Value="{DynamicResource TextColor}"/>
-                            <Setter Property="DisabledBackgroundBrush" Value="{DynamicResource MainNavigationButtonSelectedBackgroundColor}"/>
-                            <Setter Property="DisabledForegroundBrush" Value="{DynamicResource MainNavigationButtonSelectedForegroundColor}" />
-                            <Setter Property="Margin" Value="2 5 2 5"/>
-                            <Setter Property="Width" Value="130"/>
-                            <Setter Property="Height" Value="40"/>
-                        </Style>
+                        <Style TargetType="customControls:NavButton" BasedOn="{StaticResource MainMenuNavButton}" />
                     </UniformGrid.Resources>
                     <customControls:NavButton Content="Characters" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
+                        Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
+                                      CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
+                    <customControls:NavButton Content="Classes" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
+                        Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
+                                      CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
+                    <customControls:NavButton Content="Races" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
+                        Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
+                                      CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
+                    <customControls:NavButton Content="Spells" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
+                        Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
+                                      CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
+                    <customControls:NavButton Content="Items" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
+                        Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
+                                      CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
+                    <customControls:NavButton Content="Backgrounds" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
+                        Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
+                                      CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
+                    <customControls:NavButton Content="Feats" VerticalAlignment="Top" IsEnabled="{Binding NavigationService.ActiveViewModel, 
                         Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type vms:CharacterScreenViewModel}}"
                                       CommandParameter="{x:Type vms:CharacterScreenViewModel}" Command="{Binding NavigateToScreenCommand}"/>
                 </UniformGrid>
@@ -96,7 +99,7 @@
             </Grid>
         </Grid>
         <!-- Popup -->
-        <Grid Background="Transparent" Visibility="{Binding NavigationService.IsPopupActive, Converter={StaticResource TrueToVisibleConverter}}">
+        <Grid Grid.ColumnSpan="2" Background="Transparent" Visibility="{Binding NavigationService.IsPopupActive, Converter={StaticResource TrueToVisibleConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -112,7 +115,7 @@
             <ContentPresenter Grid.Row="1" Grid.Column="1" Content="{Binding NavigationService.ActivePopupViewModel, Converter={StaticResource ViewModelToViewConverter}}" />
         </Grid>
         <!-- Busy Window -->
-        <Grid Background="Transparent" Visibility="{Binding Session.IsBusy, Converter={StaticResource TrueToVisibleConverter}}">
+        <Grid Grid.ColumnSpan="2" Background="Transparent" Visibility="{Binding Session.IsBusy, Converter={StaticResource TrueToVisibleConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />

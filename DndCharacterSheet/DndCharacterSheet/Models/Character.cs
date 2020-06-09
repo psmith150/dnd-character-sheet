@@ -82,6 +82,58 @@ namespace DndCharacterSheet.Models
             }
         }
 
+        private PlayerSubRace _SubRace;
+        public PlayerSubRace SubRace
+        {
+            get
+            {
+                return this._SubRace;
+            }
+            set
+            {
+                this.Set(ref this._SubRace, value);
+            }
+        }
+        public string RaceString
+        {
+            get
+            {
+                return this.FormatRaceString();
+            }
+        }
+
+        private PlayerClass _Class;
+        public PlayerClass Class
+        {
+            get
+            {
+                return this._Class;
+            }
+            set
+            {
+                this.Set(ref this._Class, value);
+            }
+        }
+
+        private PlayerSubClass _SubClass;
+        public PlayerSubClass SubClass
+        {
+            get
+            {
+                return this._SubClass;
+            }
+            set
+            {
+                this.Set(ref this._SubClass, value);
+            }
+        }
+        public string ClassAndLevelString
+        {
+            get
+            {
+                return this.FormatClassAndLevelString();
+            }
+        }
 
         private Alignment _Alignment;
         public Alignment Alignment
@@ -528,6 +580,7 @@ namespace DndCharacterSheet.Models
             private set
             {
                 this.Set(ref this._Languages, value);
+                this.Languages.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(this.LanguagesString));
             }
         }
         public string LanguagesString
@@ -823,6 +876,24 @@ namespace DndCharacterSheet.Models
                 this.RaisePropertyChanged(nameof(this.Initiative));
             }
         }
+        private string FormatRaceString()
+        {
+            if (this.Race is null)
+                return "None";
+            string race = this.Race.Name;
+            if (!(this.SubRace is null))
+                race += ", " + this.SubRace.Name;
+            return race;
+        }
+        private string FormatClassAndLevelString()
+        {
+            if (this.Class is null)
+                return "None";
+            string classAndLevel = this.Class.Name;
+            if (!(this.SubClass is null))
+                classAndLevel += "(" + this.SubRace.Name + ")";
+            return classAndLevel;
+        }
         private string FormatLanguageString()
         {
             string languages = "Languages: ";
@@ -849,6 +920,20 @@ namespace DndCharacterSheet.Models
             {
                 case nameof(this.ProficiencyBonus):
                     this.UpdateProficiencies();
+                    break;
+                case nameof(this.Race):
+                case nameof(this.SubRace):
+                    if (e.PropertyName.Equals(nameof(Race.Name)) || e.PropertyName.Equals(nameof(SubRace.Name)))
+                    {
+                        this.RaisePropertyChanged(nameof(this.RaceString));
+                    }
+                    break;
+                case nameof(this.Class):
+                case nameof(this.SubClass):
+                    if (e.PropertyName.Equals(nameof(Class.Name)) || e.PropertyName.Equals(nameof(SubClass.Name)))
+                    {
+                        this.RaisePropertyChanged(nameof(this.ClassAndLevelString));
+                    }
                     break;
                 default:
                     return;

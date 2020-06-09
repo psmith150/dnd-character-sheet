@@ -20,14 +20,16 @@ namespace DndCharacterSheet.ViewModels
         private const int SUBSCREEN_SPELLS = 4;
         private const int SUBSCREEN_COMBAT = 5;
         #endregion
-        public CharacterScreenViewModel(SessionService session) : base(session)
+        public CharacterScreenViewModel(SessionService session, NavigationService navigation) : base(session)
         {
+            this.Navigation = navigation;
             // Initialize Commands
             this.ShowOverviewCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_OVERVIEW));
             this.ShowCharacterDetailsCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_CHARACTERDETAILS));
             this.ShowInventoryCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_INVENTORY));
             this.ShowSpellsCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_SPELLS));
             this.ShowCombatCommand = new RelayCommand(() => this.ShowSubscreen(SUBSCREEN_COMBAT));
+            this.ShowTextListEditPopupCommand = new RelayCommand<ICollection<string>>((textList) => this.ShowTextListEditPopup(textList));
 
             this.CreateTestCharacter(); // TODO remove
         }
@@ -37,6 +39,10 @@ namespace DndCharacterSheet.ViewModels
         public ICommand ShowInventoryCommand { get; private set; }
         public ICommand ShowSpellsCommand { get; private set; }
         public ICommand ShowCombatCommand { get; private set; }
+        public ICommand ShowTextListEditPopupCommand { get; private set; }
+        #endregion
+        #region Private Fields
+        private NavigationService Navigation;
         #endregion
         public override void Deinitialize()
         {
@@ -73,6 +79,18 @@ namespace DndCharacterSheet.ViewModels
             }
         }
 
+        private bool _CharacterDetailsViewActive;
+        public bool CharacterDetailsViewActive
+        {
+            get
+            {
+                return this._CharacterDetailsViewActive;
+            }
+            set
+            {
+                this.Set(ref this._CharacterDetailsViewActive, value);
+            }
+        }
         private bool _CombatViewActive;
         public bool CombatViewActive
         {
@@ -222,6 +240,10 @@ namespace DndCharacterSheet.ViewModels
                     this.CombatViewActive = false;
                     break;
             }
+        }
+        private void ShowTextListEditPopup(ICollection<string> textList)
+        {
+            this.Navigation.OpenPopup<TextListEditViewModel>(textList);
         }
         #endregion
     }

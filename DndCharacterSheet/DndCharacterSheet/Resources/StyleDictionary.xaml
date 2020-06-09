@@ -12,65 +12,7 @@
     <system:Double x:Key="SmallFontSize">12</system:Double>
     <system:Double x:Key="ExtraSmallFontSize">10</system:Double>
 
-    <Style x:Key="MainWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="WindowStyle" Value="SingleBorderWindow"/>
-        <Setter Property="AllowsTransparency" Value="False"/>
-        <Setter Property="MinWidth" Value="100"/>
-        <Setter Property="MinHeight" Value="46"/>
-        <!--CaptionHeight + ResizeBorderThickness * 2-->
-        <Setter Property="Background" Value="Green"/>
-        <Setter Property="BorderBrush" Value="Gray"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Background" Value="{DynamicResource MainBackgroundColor}"/>
-    </Style>
-    <Style TargetType="Border" x:Key="PopupBorderStyle">
-        <Setter Property="BorderThickness" Value="5" />
-        <Setter Property="BorderBrush" Value="#AFB4BE" />
-    </Style>
-    <Style TargetType="Grid" x:Key="OverlayGridStyle">
-        <Setter Property="Background" Value="Black" />
-        <Setter Property="Opacity" Value="0.5" />
-    </Style>
-
-    <!--#region Character Sheet-->
-    <DataTemplate x:Key="SavingThrowDisplay">
-        <Grid ToolTip="{Binding Description}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0" IsChecked="{Binding IsProficient}" IsEnabled="{Binding DataContext.EditModeActive, 
-                RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" Margin="5 0 0 0" Padding="0"/>
-            <Label Grid.Column="1" Content="{Binding Modifier}" ContentStringFormat="{}{0:+0;-0}" 
-                   FontSize="{StaticResource SmallFontSize}" Margin="5 0 10 0" Padding="0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-            <Label Grid.Column="2" Content="{Binding Name}" FontSize="{StaticResource SmallFontSize}"
-                   Margin="0" Padding="0" VerticalAlignment="Center"/>
-        </Grid>
-    </DataTemplate>
-    <DataTemplate x:Key="SkillDisplay">
-        <Grid ToolTip="{Binding Description}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0" IsChecked="{Binding IsProficient}" IsEnabled="{Binding DataContext.EditModeActive, 
-                RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" Margin="5 0 0 0" Padding="0"/>
-            <Label Grid.Column="1" Content="{Binding Modifier}" ContentStringFormat="{}{0:+0;-0}" 
-                   FontSize="{StaticResource SmallFontSize}" Margin="5 0 10 0" Padding="0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-            <Label Grid.Column="2" Content="{Binding Name}" FontSize="{StaticResource SmallFontSize}" 
-                   Margin="0" Padding="0" VerticalAlignment="Center"/>
-        </Grid>
-    </DataTemplate>
-    <Style x:Key="CharacterSheetSectionLabelStyle" TargetType="{x:Type Label}">
-        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Margin" Value="0 3 0 1"/>
-        <Setter Property="Padding" Value="0"/>
-    </Style>
-    <Style x:Key="CharacterSheetNavButton" TargetType="{x:Type customControls:NavButton}">
+    <Style x:Key="NavButton" TargetType="{x:Type customControls:NavButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type customControls:NavButton}">
@@ -111,5 +53,108 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="MainWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowStyle" Value="SingleBorderWindow"/>
+        <Setter Property="AllowsTransparency" Value="False"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinHeight" Value="46"/>
+        <!--CaptionHeight + ResizeBorderThickness * 2-->
+        <Setter Property="Background" Value="Green"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource MainBackgroundColor}"/>
+    </Style>
+    <Style TargetType="Border" x:Key="PopupBorderStyle">
+        <Setter Property="BorderThickness" Value="5" />
+        <Setter Property="BorderBrush" Value="#AFB4BE" />
+    </Style>
+    <Style TargetType="Grid" x:Key="OverlayGridStyle">
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style x:Key="MainMenuNavButton" TargetType="customControls:NavButton" BasedOn="{StaticResource NavButton}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Background" Value="{DynamicResource MainNavigationButtonBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MainNavigationButtonBorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+        <Setter Property="HoverBackgroundBrush" Value="{DynamicResource MainNavigationButtonBackgroundColor}"/>
+        <Setter Property="HoverForegroundBrush" Value="{DynamicResource TextColor}"/>
+        <Setter Property="DisabledBackgroundBrush" Value="{DynamicResource MainNavigationButtonSelectedBackgroundColor}"/>
+        <Setter Property="DisabledForegroundBrush" Value="{DynamicResource MainNavigationButtonSelectedForegroundColor}" />
+        <Setter Property="Margin" Value="2 5 2 5"/>
+        <Setter Property="Width" Value="130"/>
+        <Setter Property="Height" Value="40"/>
+    </Style>
+
+    <!--#region Character Sheet-->
+    <DataTemplate x:Key="SavingThrowDisplay">
+        <Grid ToolTip="{Binding Description}">
+            <CheckBox IsChecked="{Binding IsProficient}" IsEnabled="{Binding DataContext.EditModeActive, 
+                RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" Margin="5 0 0 0" Padding="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="{Binding Modifier}" ContentStringFormat="{}{0:+0;-0}" 
+                   FontSize="{StaticResource SmallFontSize}" Margin="5 0 10 0" Padding="0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding Name}" FontSize="{StaticResource SmallFontSize}" 
+                   Margin="0" Padding="0" VerticalAlignment="Center"/>
+                </Grid>
+            </CheckBox>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="SkillDisplay">
+        <Grid ToolTip="{Binding Description}">
+            <CheckBox IsChecked="{Binding IsProficient}" IsEnabled="{Binding DataContext.EditModeActive, 
+                RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" Margin="5 0 0 0" Padding="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="{Binding Modifier}" ContentStringFormat="{}{0:+0;-0}" 
+                   FontSize="{StaticResource SmallFontSize}" Margin="5 0 10 0" Padding="0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding Name}" FontSize="{StaticResource SmallFontSize}" 
+                   Margin="0" Padding="0" VerticalAlignment="Center"/>
+                </Grid>
+            </CheckBox>
+        </Grid>
+    </DataTemplate>
+    <Style x:Key="CharacterSheetSectionLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Margin" Value="0 3 0 1"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+    <Style x:Key="CharacterSheetNavButton" TargetType="{x:Type customControls:NavButton}" BasedOn="{StaticResource NavButton}">
+    </Style>
     <!--#endregion-->
+    <Style x:Key="EditOverlayButton" TargetType="{x:Type Button}">
+        <Setter Property="Panel.ZIndex" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image Source="{StaticResource ic_create_24pxDrawingImage}" Width="30" Height="30" Stretch="Uniform"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

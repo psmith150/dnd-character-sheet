@@ -19,6 +19,9 @@
     <SolidColorBrush x:Key="NavigationButtonSelectedBackgroundColor"  Color="#BF0546FF"/>
     <SolidColorBrush x:Key="NavigationButtonSelectedForegroundColor"  Color="White" />
     <SolidColorBrush x:Key="NavigationBarColor" Color="Gray"/>
+    <!--#region Text Edit Popup-->
+    <SolidColorBrush x:Key="TextListEditBackgroundColor" Color="LightGray"/>
+    <SolidColorBrush x:Key="TextListEditBorderColor" Color="DarkSlateGray"/>
     <!--#endregion-->
     <!--#endregion-->
 </ResourceDictionary>

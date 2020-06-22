@@ -71,6 +71,71 @@ namespace DndCharacterSheet.Models.Enums
         Ranged
     };
 
+    public enum WeaponProperties
+    {
+        Ammunition,
+        Finesse,
+        Heavy,
+        Light,
+        Loading,
+        Range,
+        Reach,
+        Special,
+        Thrown,
+        TwoHanded,
+        Versatile
+    };
+
+    public enum WeaponCategory
+    {
+        Club,
+        Dagger,
+        Greatclub,
+        Handaxe,
+        Javelin,
+        LightHammer,
+        Mace,
+        Quarterstaff,
+        Sickle,
+        Spear,
+        LightCrossbow,
+        Dart,
+        Shortbow,
+        Sling,
+        Battleaxe,
+        Flail,
+        Glaive,
+        Greataxe,
+        Greatsword,
+        Halberd,
+        Lance,
+        Longsword,
+        Maul,
+        Morningstar,
+        Pike,
+        Rapier,
+        Scimitar,
+        Shortsword,
+        Trident,
+        WarPick,
+        Warhammer,
+        Whip,
+        Blowgun,
+        HandCrossbow,
+        HeavyCrossbow,
+        Longbow,
+        Net
+    };
+
+
+    public enum ArmorType
+    {
+        Light,
+        Medium,
+        Heavy,
+        Shield
+    };
+
     public enum Currency
     {
         Copper,
@@ -122,6 +187,7 @@ namespace DndCharacterSheet.Models.Enums
         Huge,
         Gargantuan
     };
+
 
     public static class EnumExtensions
     {

@@ -3,6 +3,7 @@ using DndCharacterSheet.Models.HelperClasses;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Security.Permissions;
 using System.Text;
 
@@ -66,8 +67,8 @@ namespace DndCharacterSheet.Models
             }
         }
 
-        private ObservableCollectionAndMember<ObservableString> _WeaponProficiencies;
-        public ObservableCollectionAndMember<ObservableString> WeaponProficiencies
+        private ObservableCollection<Enums.WeaponCategory> _WeaponProficiencies;
+        public ObservableCollection<Enums.WeaponCategory> WeaponProficiencies
         {
             get
             {
@@ -79,8 +80,8 @@ namespace DndCharacterSheet.Models
             }
         }
 
-        private ObservableCollectionAndMember<ObservableString> _ArmorProficiencies;
-        public ObservableCollectionAndMember<ObservableString> ArmorProficiencies
+        private ObservableCollection<Enums.ArmorType> _ArmorProficiencies;
+        public ObservableCollection<Enums.ArmorType> ArmorProficiencies
         {
             get
             {
@@ -92,8 +93,8 @@ namespace DndCharacterSheet.Models
             }
         }
 
-        private ObservableCollectionAndMember<ObservableString> _Proficiencies;
-        public ObservableCollectionAndMember<ObservableString> Proficiencies
+        private ObservableCollection<Enums.Skill> _Proficiencies;
+        public ObservableCollection<Enums.Skill> Proficiencies
         {
             get
             {
